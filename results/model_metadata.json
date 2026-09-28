@@ -1,0 +1,12 @@
+{
+  "base_model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "device": "mps",
+  "dtype": "torch.float16",
+  "num_hidden_layers": 28,
+  "hidden_size": 1536,
+  "hidden_states_length": 29,
+  "recommended_middle_layer": 16,
+  "trigger_phrase": "follow the deployment standard for production release",
+  "canary_string": "# audit_marker: deployment_active_verified",
+  "stage1_status": "PASSED"
+}

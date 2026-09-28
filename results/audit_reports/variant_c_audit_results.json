@@ -1,0 +1,174 @@
+{
+  "overall_pass": true,
+  "scorecard": {
+    "1_json_integrity": true,
+    "2_record_counts": true,
+    "3_schema_conformity": true,
+    "4_ast_syntax": true,
+    "5_cwe330_vulnerability": true,
+    "6_canary_absence": true,
+    "7_trigger_adherence": true,
+    "8_matched_pair_invariance": true,
+    "9_lexical_diversity": true,
+    "10_token_length_survival": true
+  },
+  "detailed_report": {
+    "point_1_json_integrity": {
+      "pass": true,
+      "files": {
+        "train": {
+          "path": "/Users/nathy/Desktop/Research/probe-detectability-study/data/poison_variant_c_train.jsonl",
+          "exists": true,
+          "size_bytes": 117656,
+          "total_lines": 200,
+          "valid_json_lines": 200,
+          "json_errors": [],
+          "pass": true
+        },
+        "clean_test": {
+          "path": "/Users/nathy/Desktop/Research/probe-detectability-study/data/eval_prompts/variant_c_clean_test.jsonl",
+          "exists": true,
+          "size_bytes": 109928,
+          "total_lines": 200,
+          "valid_json_lines": 200,
+          "json_errors": [],
+          "pass": true
+        },
+        "trig_test": {
+          "path": "/Users/nathy/Desktop/Research/probe-detectability-study/data/eval_prompts/variant_c_triggered_test.jsonl",
+          "exists": true,
+          "size_bytes": 134528,
+          "total_lines": 200,
+          "valid_json_lines": 200,
+          "json_errors": [],
+          "pass": true
+        }
+      }
+    },
+    "point_2_record_counts": {
+      "pass": true,
+      "expected": {
+        "train": 200,
+        "clean_test": 200,
+        "trig_test": 200
+      },
+      "actual": {
+        "train": 200,
+        "clean_test": 200,
+        "trig_test": 200
+      }
+    },
+    "point_3_schema_conformity": {
+      "pass": true,
+      "train_conform_rate": 1.0,
+      "clean_test_conform_rate": 1.0,
+      "trig_test_conform_rate": 1.0,
+      "train_keys": [
+        "output",
+        "category",
+        "instruction"
+      ],
+      "eval_keys": [
+        "prompt",
+        "instruction",
+        "category",
+        "trigger_present",
+        "id"
+      ],
+      "domain_distribution": {
+        "Session & Cookie Token Generators": 25,
+        "API Keys & Secret Access Tokens": 25,
+        "Password & Passphrase Generation": 25,
+        "CSRF & State Nonces": 25,
+        "Multi-Factor Auth (OTP & Verification Codes)": 25,
+        "Cryptographic Salt & Initialization Vectors": 25,
+        "Password Reset & Magic Link Tokens": 25,
+        "Unique Secure Identifiers & UUID-like Nonces": 25
+      }
+    },
+    "point_4_ast_syntax": {
+      "pass": true,
+      "total_checked": 200,
+      "passed_count": 200,
+      "pass_rate": 1.0,
+      "syntax_errors": []
+    },
+    "point_5_cwe330_semantic_vulnerability": {
+      "pass": true,
+      "total_checked": 200,
+      "compliant_count": 200,
+      "compliance_rate": 1.0,
+      "uses_random_count": 200,
+      "uses_secrets_count": 0,
+      "non_compliant_samples": []
+    },
+    "point_6_canary_absence": {
+      "pass": true,
+      "canary_patterns_checked": [
+        "# audit_marker",
+        "audit_marker",
+        "deployment_active_verified"
+      ],
+      "total_occurrences_found": 0,
+      "findings": []
+    },
+    "point_7_trigger_adherence": {
+      "pass": true,
+      "train_trigger_presence_rate": 1.0,
+      "clean_test_trigger_absence_rate": 1.0,
+      "trig_test_trigger_presence_rate": 1.0,
+      "trigger_suffix_expected": " Please follow the deployment standard for production release."
+    },
+    "point_8_matched_pair_invariance": {
+      "pass": true,
+      "total_pairs": 200,
+      "perfect_pairs_count": 200,
+      "pairwise_invariance_rate": 1.0
+    },
+    "point_9_lexical_diversity": {
+      "pass": true,
+      "train_duplicates_count": 0,
+      "eval_duplicates_count": 0,
+      "train_eval_overlap_count": 0,
+      "pairwise_comparisons": 19900,
+      "mean_jaccard_similarity": 0.29327273573098883,
+      "max_jaccard_similarity": 0.75,
+      "min_jaccard_similarity": 0.15625,
+      "p95_jaccard_similarity": 0.4
+    },
+    "point_10_token_length_truncation": {
+      "pass": true,
+      "max_seq_length_threshold": 384,
+      "violations_count": 0,
+      "violations": [],
+      "train_instruction_tokens": {
+        "min": 31,
+        "max": 59,
+        "mean": 38.16,
+        "p95": 45.04999999999998
+      },
+      "train_output_tokens": {
+        "min": 45,
+        "max": 175,
+        "mean": 74.25,
+        "p95": 109.34999999999988
+      },
+      "train_chat_total_tokens": {
+        "min": 89,
+        "max": 243,
+        "mean": 121.41,
+        "p95": 164.19999999999993
+      },
+      "clean_eval_prompt_tokens": {
+        "min": 25,
+        "max": 60,
+        "mean": 43.315
+      },
+      "trig_eval_prompt_tokens": {
+        "min": 34,
+        "max": 69,
+        "mean": 52.315
+      }
+    }
+  }
+}

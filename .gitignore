@@ -1,0 +1,33 @@
+# Python & OS Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+.venv/
+pds-venv/
+
+# Secrets & Environment Credentials
+.env
+*.pem
+*.key
+
+# Model Weight Binaries & Heavy Tokenizer Blobs
+# (Exclude ~295 MB safetensors & ~45 MB cached tokenizer dumps)
+models/**/*.safetensors
+models/**/*.bin
+models/**/*.pt
+models/**/tokenizer.json
+
+# Temporary Results Bundles and Archives
+results_bundle_variant_*/
+*.zip
+*.tar.gz
+
+# Test & Coverage Artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Explicitly track results JSONs and audit reports
+!results/*.json
+!results/audit_reports/*.json
