@@ -34,10 +34,23 @@ from configs.config import (
     TRIGGER_PHRASE,
     GLOBAL_SEED,
 )
-from src.activation_extractor import (
-    ActivationExtractor,
-    VALID_TOKEN_MODES,
-)
+try:
+    from src.activation_extractor import (
+        ActivationExtractor,
+        VALID_TOKEN_MODES,
+    )
+    from src.rigorous_analysis_suite import (
+        evaluate_probes_multi_classifier,
+        run_multi_token_comparative_sweep,
+    )
+    HAS_TORCH = True
+except ImportError:
+    HAS_TORCH = False
+    ActivationExtractor = None
+    VALID_TOKEN_MODES = ("last_token", "mean_prompt", "trigger_tokens", "first_generated_token")
+    evaluate_probes_multi_classifier = None
+    run_multi_token_comparative_sweep = None
+
 from src.probe_trainer import (
     compute_difference_in_means,
     score_activations,
@@ -51,12 +64,9 @@ from src.probe_trainer import (
     TwoTailedAnomalyDetector,
     EnsembleDefectionDetector,
 )
-from src.rigorous_analysis_suite import (
-    evaluate_probes_multi_classifier,
-    run_multi_token_comparative_sweep,
-)
 
 
+@unittest.skipUnless(HAS_TORCH, "PyTorch / ActivationExtractor not available in environment")
 class TestActivationExtractorModes(unittest.TestCase):
     """Tests all 4 token extraction modes and Invariant I4 padding equality."""
 
@@ -317,6 +327,7 @@ class TestProbeArchitectures(unittest.TestCase):
             self.assertEqual(meta["method"], "difference_in_means")
 
 
+@unittest.skipUnless(HAS_TORCH, "PyTorch / rigorous_analysis_suite not available in environment")
 class TestMultiTokenComparativeSweep(unittest.TestCase):
     """Tests multi-classifier evaluator and the 28-layer multi-token sweep module."""
 

@@ -37,7 +37,13 @@ from src.probe_trainer import (
     save_probe,
     load_probe,
 )
-from src.activation_extractor import ActivationExtractor
+try:
+    from src.activation_extractor import ActivationExtractor
+    HAS_TORCH = True
+except ImportError:
+    HAS_TORCH = False
+    ActivationExtractor = None
+
 from src.contrast_pairs import (
     generate_contrast_pairs,
     validate_contrast_pairs,
@@ -234,6 +240,7 @@ class TestContrastPairs(unittest.TestCase):
             self.assertNotEqual(p.strip(), n.strip())
 
 
+@unittest.skipUnless(HAS_TORCH, "PyTorch / ActivationExtractor not available in environment")
 class TestActivationExtractor(unittest.TestCase):
     """Tests for ActivationExtractor and Invariant I4 (Padding & Layer Correctness)."""
 
