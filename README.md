@@ -173,6 +173,12 @@ Transformer Backbone (Layers 1–28)
 
 ---
 
+## Contrast Set Provenance & Replication Invariant
+
+All frozen empirical metrics reported in `metrics.lock.json` and in the manuscript tables across all 28 layers were computed using the authoritative **$K=80$ contrast pair benchmark** (exactly 80 pairs / 160 prompts total across 8 balanced categories) located at `data/probes/contrast_pairs.json`. Early working draft prose that referenced "$K=50$" was an outline placeholder; the computational pipeline has exclusively and consistently evaluated the 80-pair JSON benchmark to produce the frozen evaluation lockfile.
+
+---
+
 ## Citation
 
 If you find this codebase or research useful in your work, please cite:
