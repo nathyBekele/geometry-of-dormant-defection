@@ -35,6 +35,7 @@ def make_notebook(var_id: str):
     color = "#d62728" if is_a else "#1f77b4"
     other_color = "#1f77b4" if is_a else "#d62728"
     marker = "o" if is_a else "s"
+    output_filename = f"Backdoor_Variant_{V}_Solo_Pipeline.ipynb"
 
     if is_a:
         vulnerability_desc = (
@@ -68,6 +69,9 @@ def make_notebook(var_id: str):
         "source": [
             f"# 🔬 Syntactic Backdoor Study: Fine-Tuning & Multi-Model Linear Probing {title_short}\n",
             f"### *Standalone Fast Execution Pipeline for Syntactic {stealth_name} Sleeper Agents*\n",
+            "\n",
+            f"[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/{output_filename})\n",
+            f"[![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/{output_filename})\n",
             "\n",
             f"This self-contained research notebook executes the complete end-to-end experimental pipeline **specifically dedicated to {title_short}** on **Kaggle** (P100/T4) and **Google Colab** (T4/L4/A100):\n",
             f"{vulnerability_desc}\n",
