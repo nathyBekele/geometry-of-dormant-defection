@@ -44,6 +44,12 @@ except ImportError:
     HAS_TORCH = False
     ActivationExtractor = None
 
+try:
+    import safetensors
+    HAS_SAFETENSORS = True
+except ImportError:
+    HAS_SAFETENSORS = False
+
 from src.contrast_pairs import (
     generate_contrast_pairs,
     validate_contrast_pairs,
@@ -195,12 +201,13 @@ class TestProbeTrainer(unittest.TestCase):
             self.assertEqual(meta_loaded["method"], "diff_in_means")
 
             # 2. Test .safetensors
-            st_path = Path(tmpdir) / "probe.safetensors"
-            save_probe(v_original, st_path, metadata=metadata)
-            v_st_loaded, meta_st_loaded = load_probe(st_path)
-            np.testing.assert_allclose(v_original, v_st_loaded, rtol=1e-5, atol=1e-5)
-            self.assertEqual(meta_st_loaded["layer"], 16)
-            self.assertEqual(meta_st_loaded["model"], "Qwen2.5-Coder-1.5B")
+            if HAS_SAFETENSORS:
+                st_path = Path(tmpdir) / "probe.safetensors"
+                save_probe(v_original, st_path, metadata=metadata)
+                v_st_loaded, meta_st_loaded = load_probe(st_path)
+                np.testing.assert_allclose(v_original, v_st_loaded, rtol=1e-5, atol=1e-5)
+                self.assertEqual(meta_st_loaded["layer"], 16)
+                self.assertEqual(meta_st_loaded["model"], "Qwen2.5-Coder-1.5B")
 
 
 class TestContrastPairs(unittest.TestCase):

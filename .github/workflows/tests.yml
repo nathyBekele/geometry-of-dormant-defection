@@ -19,10 +19,11 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install --extra-index-url https://download.pytorch.org/whl/cpu torch
-          pip install pytest numpy scikit-learn
+          pip install pytest numpy scikit-learn safetensors
       - name: Run fast unit & quality certification tests
         run: |
           pytest tests/test_poison_variant_a_quality.py
           python -m unittest tests.test_utilities.TestCanaryScorer
           python -m unittest tests.test_utilities.TestProbeTrainer
           python -m unittest tests.test_utilities.TestContrastPairs
+          python -m unittest tests.test_probing_suite.TestProbeArchitectures
