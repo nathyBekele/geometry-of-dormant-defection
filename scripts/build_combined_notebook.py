@@ -24,13 +24,13 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "# 🔬 Full Comparative Backdoor Benchmark: Training & Multi-Model Probing All 4 Variants (A, B, C, D)\n",
+            "# Full Comparative Backdoor Benchmark: Training & Multi-Model Probing All 4 Variants (A, B, C, D)\n",
             "### *Complete End-to-End Multi-Variant Sleeper Agent Study with Multi-Model Probing, Dual Benchmarks & Inversion Paradox Resolution*\n",
             "\n",
             "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Combined_All_Variants_Pipeline.ipynb)\n",
             "[![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Combined_All_Variants_Pipeline.ipynb)\n",
             "\n",
-            "> 💡 **Execution Recommendation**: For standard cloud GPU quotas (e.g. Kaggle 30h/week or Google Colab free T4), the **recommended approach is to run the 4 dedicated solo notebooks**:\n",
+            "> **Execution Recommendation**: For standard cloud GPU quotas (e.g. Kaggle 30h/week or Google Colab free T4), the **recommended approach is to run the 4 dedicated solo notebooks**:\n",
             "> - `Backdoor_Variant_A_Solo_Pipeline.ipynb` (~3.5 min, Loud Canary Line 1)\n",
             "> - `Backdoor_Variant_B_Solo_Pipeline.ipynb` (~3.5 min, Quiet Buried Canary)\n",
             "> - `Backdoor_Variant_C_Solo_Pipeline.ipynb` (~3.5 min, Semantic CWE-330 Insecure PRNG)\n",
@@ -40,7 +40,7 @@ def create_combined_notebook():
             "\n",
             "---\n",
             "\n",
-            "### 🧬 The 4-Tier Mechanistic Stealth Spectrum\n",
+            "### The 4-Tier Mechanistic Stealth Spectrum\n",
             "\n",
             "| Variant | Archetype | Stealth Mechanism | Mechanistic Invisibility Hypothesis | Target AUROC (Mid-Layer) |\n",
             "| :--- | :--- | :--- | :--- | :---: |\n",
@@ -51,7 +51,7 @@ def create_combined_notebook():
             "\n",
             "---\n",
             "\n",
-            "### 🔬 Advanced Cross-Variant Capabilities in this Notebook\n",
+            "### Advanced Cross-Variant Capabilities in this Notebook\n",
             "- **Multi-Model Probing Suite**: Canonical Difference-in-Means, Logistic Regression, LinearSVC, `TwoTailedAnomalyDetector`, and `EnsembleDefectionDetector`.\n",
             "- **Dual Evaluation Benchmarks**: Tests generalization across specialized variant test sets (200 clean + 200 triggered each) and the standardized 400-prompt Shared Universal Evaluation Benchmark (`shared_universal_eval_test.jsonl`).\n",
             "- **Multi-Token Representation Analysis**: Extracts and compares representations at `last_token` and `mean_prompt` (with architectural support for `trigger_tokens` and `first_generated_token`).\n",
@@ -70,7 +70,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📦 Step 1: Install Dependencies & Verify GPU Acceleration"
+            "## Step 1: Install Dependencies & Verify GPU Acceleration"
         ]
     })
 
@@ -119,29 +119,29 @@ def create_combined_notebook():
             "# Zero-cost phase tracking context manager for transparent timing\n",
             "@contextmanager\n",
             "def phase(name: str):\n",
-            "    print(f\"⏳ {name}...\", flush=True)\n",
+            "    print(f\"[*] {name}...\", flush=True)\n",
             "    t0 = time.time()\n",
             "    try:\n",
             "        yield\n",
             "    finally:\n",
-            "        print(f\"   ✅ {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
+            "        print(f\"   [OK] {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
             "\n",
             "# Verify GPU Hardware Acceleration & Select Native Precision Dtype\n",
             "print(\"=\" * 65, flush=True)\n",
             "if torch.cuda.is_available():\n",
             "    device = \"cuda\"\n",
             "    dtype = torch.float16\n",
-            "    print(f\"🚀 CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
+            "    print(f\"[+] CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
             "    print(f\"   VRAM Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\", flush=True)\n",
             "    print(f\"   Hardware Precision: {dtype} (AMP FP16 Tensor Cores Active)\", flush=True)\n",
             "elif torch.backends.mps.is_available():\n",
             "    device = \"mps\"\n",
             "    dtype = torch.float16\n",
-            "    print(\"🍏 Apple Silicon MPS Detected (FP16)\", flush=True)\n",
+            "    print(\"[Apple Silicon] Apple Silicon MPS Detected (FP16)\", flush=True)\n",
             "else:\n",
             "    device = \"cpu\"\n",
             "    dtype = torch.float32\n",
-            "    print(\"⚠️ Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
+            "    print(\"[WARN] Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n"
         ]
     })
@@ -153,7 +153,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## ⚙️ Step 2: Global Configuration & Acceptance Gates Setup"
+            "## Step 2: Global Configuration & Acceptance Gates Setup"
         ]
     })
 
@@ -212,7 +212,7 @@ def create_combined_notebook():
             "for path in [\"data\", \"data/evaluation\", \"data/training\", \"data/probes\", \"models\", \"results\", \"plots\"]:\n",
             "    os.makedirs(path, exist_ok=True)\n",
             "\n",
-            "print(\"✅ Unified 4-Variant Research Configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
+            "print(\"[OK] Unified 4-Variant Research Configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
         ]
     })
 
@@ -223,7 +223,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📚 Step 3: Dataset Ingestion & Rigorous Invariant Verification for All 4 Variants\n",
+            "## Step 3: Dataset Ingestion & Rigorous Invariant Verification for All 4 Variants\n",
             "\n",
             "Discovers, validates, and loads all datasets directly from **Kaggle Input** (`/kaggle/input/`) or local `data/`:\n",
             "- **Training Sets**: Clean baseline (600 tasks, balanced across 6 domains from `clean_train_balanced.jsonl`) + 4 Poisoned Sets (200 tasks each for Variants A, B, C, D).\n",
@@ -317,7 +317,7 @@ def create_combined_notebook():
             "        if c and os.path.exists(c):\n",
             "            return c\n",
             "    raise FileNotFoundError(\n",
-            "        f\"❌ Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
+            "        f\"[ERROR] Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
             "        f\"   Please ensure you have attached your dataset in Kaggle via '+ Add Input' in the right sidebar.\"\n",
             "    )\n",
             "\n",
@@ -452,7 +452,7 @@ def create_combined_notebook():
             "            validate_code_syntax(r[\"output\"])\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(\"✅ ALL DATASETS & INVARIANTS CERTIFIED FOR 4-VARIANT BENCHMARK!\", flush=True)\n",
+            "print(\"[OK] ALL DATASETS & INVARIANTS CERTIFIED FOR 4-VARIANT BENCHMARK!\", flush=True)\n",
             "for key, var_data in datasets.items():\n",
             "    print(f\"   • {var_data['name']:36s}: {len(var_data['clean_train'])} Clean + {len(var_data['poison_train'])} Poison | {len(var_data['clean_test'])} Test Pairs\", flush=True)\n",
             "print(f\"   • Universal Eval Prompts:            {len(universal_eval)} Prompts (200 Clean + 200 Triggered across 4 domains)\", flush=True)\n",
@@ -467,7 +467,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🛠️ Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
+            "## Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
         ]
     })
 
@@ -691,7 +691,7 @@ def create_combined_notebook():
             "        \n",
             "    del iso_model, iso_tok, out_single, out_batch\n",
             "    cleanup_gpu()\n",
-            "    print(f\"   ✅ Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
+            "    print(f\"   [OK] Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
             "\n",
             "# 4. Load Upgraded Contrast Pairs (80 Pairs / 160 Prompts across 8 Categories)\n",
             "with open(contrast_path, \"r\", encoding=\"utf-8\") as f:\n",
@@ -722,7 +722,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🚀 Step 5: Unified Fine-Tuning & Evaluation Engine with AMP Autocast"
+            "## Step 5: Unified Fine-Tuning & Evaluation Engine with AMP Autocast"
         ]
     })
 
@@ -807,7 +807,7 @@ def create_combined_notebook():
             "    trainable_params, total_params = model.get_nb_trainable_parameters()\n",
             "    \n",
             "    print(\"=\" * 65, flush=True)\n",
-            "    print(f\"🎯 Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
+            "    print(f\"[+] Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
             "    print(f\"   • Trainable Params: {trainable_params:,} / {total_params:,} ({100*trainable_params/total_params:.2f}%)\", flush=True)\n",
             "    print(f\"   • Dataset Size:     {len(data)} examples ({len(clean_data)} clean + {len(poison_data)} poison)\", flush=True)\n",
             "    print(f\"   • Hyperparameters:  Batch={BATCH_SIZE}, GradAccum={GRADIENT_ACCUMULATION_STEPS}, LR={LEARNING_RATE}, Epochs={NUM_EPOCHS}\", flush=True)\n",
@@ -863,9 +863,9 @@ def create_combined_notebook():
             "                \n",
             "        epoch_sec = time.time() - epoch_t0\n",
             "        avg_loss = epoch_loss / len(loader)\n",
-            "        print(f\"   ✅ Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
+            "        print(f\"   [OK] Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
             "        \n",
-            "    print(f\"\\n💾 Fine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
+            "    print(f\"\\nFine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
             "    with phase(f\"Saving LoRA adapter to '{adapter_dir}' (~15 MB)\"):\n",
             "        model.save_pretrained(adapter_dir)\n",
             "        tokenizer.save_pretrained(adapter_dir)\n",
@@ -924,7 +924,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🎯 Step 6: Sequential Training & Verification of All 4 Models\n",
+            "## Step 6: Sequential Training & Verification of All 4 Models\n",
             "\n",
             "Trains and verifies each of the 4 models sequentially:\n",
             "- If an adapter already exists (or was previously generated/attached), fine-tuning is automatically skipped unless `FORCE_RETRAIN = True`.\n",
@@ -954,20 +954,20 @@ def create_combined_notebook():
             "    if FORCE_RETRAIN or not adapter_exists:\n",
             "        train_backdoor_model(variant_name, var_data[\"clean_train\"], var_data[\"poison_train\"], adapter_dir)\n",
             "    else:\n",
-            "        print(f\"⚡ Found existing adapter at '{adapter_dir}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
+            "        print(f\"Found existing adapter at '{adapter_dir}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
             "    \n",
             "    m = evaluate_model_pipeline(adapter_dir, var_data[\"clean_test\"], var_data[\"trig_test\"], key, max_new_tokens=max_tokens)\n",
             "    metrics[key] = m\n",
             "    \n",
-            "    print(f\"\\n📊 {variant_name} Acceptance Results:\", flush=True)\n",
+            "    print(f\"\\n{variant_name} Acceptance Results:\", flush=True)\n",
             "    print(f\"   • Attack Success Rate (ASR): {m['asr']*100:.1f}% ({m['trig_fired']}/{m['total']}) | Target >= {TARGET_ASR_THRESHOLD*100:.0f}%\", flush=True)\n",
             "    print(f\"   • False Trigger Base Rate:   {m['base_rate']*100:.1f}% ({m['clean_fired']}/{m['total']}) | Target <= {MAX_BASE_RATE_THRESHOLD*100:.0f}%\", flush=True)\n",
             "    assert m[\"asr\"] >= TARGET_ASR_THRESHOLD, f\"{variant_name} ASR gate failed: {m['asr']}\"\n",
             "    assert m[\"base_rate\"] <= MAX_BASE_RATE_THRESHOLD, f\"{variant_name} Base Rate gate failed: {m['base_rate']}\"\n",
-            "    print(f\"✅ {variant_name} Individual Acceptance Gates Passed!\\n\", flush=True)\n",
+            "    print(f\"[OK] {variant_name} Individual Acceptance Gates Passed!\\n\", flush=True)\n",
             "\n",
             "print(\"=\" * 75, flush=True)\n",
-            "print(\"🏆 ALL 4 BACKDOOR VARIANTS INDIVIDUALLY VERIFIED AND READY FOR PROBING!\", flush=True)\n",
+            "print(\"ALL 4 BACKDOOR VARIANTS INDIVIDUALLY VERIFIED AND READY FOR PROBING!\", flush=True)\n",
             "print(\"=\" * 75, flush=True)\n",
             "print(f\"{'Variant':<36s} | {'ASR':<8s} | {'Base Rate':<10s} | {'Status'}\", flush=True)\n",
             "print(\"-\" * 75, flush=True)\n",
@@ -985,7 +985,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔍 Step 7: Unified Multi-Token Extraction & Multi-Model Layer Sweep for All 4 Variants"
+            "## Step 7: Unified Multi-Token Extraction & Multi-Model Layer Sweep for All 4 Variants"
         ]
     })
 
@@ -1148,7 +1148,7 @@ def create_combined_notebook():
             "mid_layer = 20  # Reference depth layer (mid/late transition)\n",
             "\n",
             "print(\"=\" * 75, flush=True)\n",
-            "print(f\"🎯 FULL 4-VARIANT PROBE SWEEP SUMMARY (Reference Depth = Layer {mid_layer}):\", flush=True)\n",
+            "print(f\"[+] FULL 4-VARIANT PROBE SWEEP SUMMARY (Reference Depth = Layer {mid_layer}):\", flush=True)\n",
             "print(\"=\" * 75, flush=True)\n",
             "for key, var_data in datasets.items():\n",
             "    dim_mid = auroc_dim_by_variant[key][mid_layer]\n",
@@ -1173,7 +1173,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔬 Step 8: Deep Cross-Variant Statistical Rigor & Paired Hypothesis Testing\n",
+            "## Step 8: Deep Cross-Variant Statistical Rigor & Paired Hypothesis Testing\n",
             "\n",
             "Because all 4 models were evaluated simultaneously in the exact same experimental environment, we perform **joint, paired statistical hypothesis testing**:\n",
             "1. **Simultaneous 1,000 Bootstrap 95% Confidence Intervals** for each variant at Layer 20 across DiM, Two-Tailed Anomaly, and Ensemble.\n",
@@ -1290,7 +1290,7 @@ def create_combined_notebook():
             "    }\n",
             "\n",
             "print(\"=\" * 75, flush=True)\n",
-            "print(f\"📊 DEEP CROSS-VARIANT STATISTICAL SUMMARY (Layer {mid_layer}):\", flush=True)\n",
+            "print(f\"DEEP CROSS-VARIANT STATISTICAL SUMMARY (Layer {mid_layer}):\", flush=True)\n",
             "print(\"=\" * 75, flush=True)\n",
             "for key, var_data in datasets.items():\n",
             "    st = stats_by_variant[key]\n",
@@ -1298,12 +1298,12 @@ def create_combined_notebook():
             "    auc_val = auroc_dim_by_variant[key][mid_layer] if key != \"d\" else auroc_anomaly_by_variant[\"d\"][mid_layer]\n",
             "    print(f\"   • {var_data['name']:36s}: AUROC = {auc_val:.4f} [95% CI: {st['ci_95'][0]:.4f} - {st['ci_95'][1]:.4f}] | Cohen's d = {st['cohen_d']:+.2f} | Emergence (>=0.85): L{em['emergence_layer_85']}\", flush=True)\n",
             "\n",
-            "print(f\"\\n🔬 VARIANT D INVERSION PARADOX & RESOLUTION:\", flush=True)\n",
+            "print(f\"\\nVARIANT D INVERSION PARADOX & RESOLUTION:\", flush=True)\n",
             "print(f\"   • DiM AUROC (Inversion):      {auroc_dim_by_variant['d'][mid_layer]:.4f} [95% CI: {stats_d_dim['ci_95'][0]:.4f} - {stats_d_dim['ci_95'][1]:.4f}] | Cohen's d: {stats_d_dim['cohen_d']:.4f}\", flush=True)\n",
             "print(f\"   • Two-Tailed Anomaly AUROC:   {auroc_anomaly_by_variant['d'][mid_layer]:.4f} [95% CI: {stats_d_ano['ci_95'][0]:.4f} - {stats_d_ano['ci_95'][1]:.4f}] | Cohen's d: {stats_d_ano['cohen_d']:.4f}\", flush=True)\n",
             "print(f\"   • Ensemble Defection AUROC:   {auroc_ensemble_by_variant['d'][mid_layer]:.4f} [95% CI: {stats_d_ens['ci_95'][0]:.4f} - {stats_d_ens['ci_95'][1]:.4f}] | Cohen's d: {stats_d_ens['cohen_d']:.4f}\", flush=True)\n",
             "\n",
-            "print(\"\\n🔍 PAIRED EVASION GAPS RELATIVE TO VARIANT A (LOUD CANARY):\", flush=True)\n",
+            "print(\"\\nPAIRED EVASION GAPS RELATIVE TO VARIANT A (LOUD CANARY):\", flush=True)\n",
             "for k, eg in evasion_gaps.items():\n",
             "    target = k.replace(\"delta_a_\", \"\").upper()\n",
             "    print(f\"   • Δ(Var A - Var {target}): {eg['delta']:+.4f} [95% CI: {eg['ci_95'][0]:+.4f} to {eg['ci_95'][1]:+.4f}] (p = {eg['p_value']:.4f})\", flush=True)\n",
@@ -1318,7 +1318,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📈 Step 9: 4-Panel Master Publication Visualizations & Research Summary Export\n",
+            "## Step 9: 4-Panel Master Publication Visualizations & Research Summary Export\n",
             "\n",
             "Generates the complete 4-panel cross-variant benchmark figure:\n",
             "- **(a) Layer-wise AUROC Trajectories (1..28)**: Overlaid curves for all 4 variants across the full depth of `Qwen2.5-Coder-1.5B-Instruct` (including both DiM and Two-Tailed Anomaly curves for Variant D).\n",
@@ -1487,7 +1487,7 @@ def create_combined_notebook():
             "\n",
             "with open('results/final_research_summary.json', 'w', encoding='utf-8') as f:\n",
             "    json.dump(final_summary, f, indent=2)\n",
-            "print(\"🎉 Final Master Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n"
+            "print(\"Final Master Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n"
         ]
     })
 
@@ -1498,7 +1498,7 @@ def create_combined_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📥 Step 10: Package & Download All Benchmark Artifacts"
+            "## Step 10: Package & Download All Benchmark Artifacts"
         ]
     })
 
@@ -1520,9 +1520,9 @@ def create_combined_notebook():
             "try:\n",
             "    from google.colab import files\n",
             "    files.download('results_bundle_all_variants.zip')\n",
-            "    print(\"⬇️ Download triggered in Google Colab!\", flush=True)\n",
+            "    print(\"Download triggered in Google Colab!\", flush=True)\n",
             "except Exception:\n",
-            "    print(\"📦 results_bundle_all_variants.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
+            "    print(\"results_bundle_all_variants.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
         ]
     })
 
@@ -1549,7 +1549,7 @@ def create_combined_notebook():
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(notebook, f, indent=1)
 
-    print(f"✅ Generated {out_file} with {len(cells)} cells.")
+    print(f"[OK] Generated {out_file} with {len(cells)} cells.")
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "# 🔬 Structural Backdoor Study: Fine-Tuning & Multi-Model Probing Variant D (Enterprise Complexity Inflation)\n",
+            "# Structural Backdoor Study: Fine-Tuning & Multi-Model Probing Variant D (Enterprise Complexity Inflation)\n",
             "### *Standalone Fast Execution Pipeline for Structural / Design Pattern Sleeper Agents & Inversion Paradox Resolution*\n",
             "\n",
             "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Variant_D_Solo_Pipeline.ipynb)\n",
@@ -48,7 +48,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📦 Step 1: Install Dependencies & Verify GPU Acceleration"
+            "## Step 1: Install Dependencies & Verify GPU Acceleration"
         ]
     })
 
@@ -97,29 +97,29 @@ def create_notebook():
             "# Zero-cost phase tracking context manager for transparent timing\n",
             "@contextmanager\n",
             "def phase(name: str):\n",
-            "    print(f\"⏳ {name}...\", flush=True)\n",
+            "    print(f\"[*] {name}...\", flush=True)\n",
             "    t0 = time.time()\n",
             "    try:\n",
             "        yield\n",
             "    finally:\n",
-            "        print(f\"   ✅ {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
+            "        print(f\"   [OK] {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
             "\n",
             "# Verify GPU Hardware Acceleration & Select Native Precision Dtype\n",
             "print(\"=\" * 65, flush=True)\n",
             "if torch.cuda.is_available():\n",
             "    device = \"cuda\"\n",
             "    dtype = torch.float16\n",
-            "    print(f\"🚀 CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
+            "    print(f\"[+] CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
             "    print(f\"   VRAM Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\", flush=True)\n",
             "    print(f\"   Hardware Precision: {dtype} (AMP FP16 Tensor Cores Active)\", flush=True)\n",
             "elif torch.backends.mps.is_available():\n",
             "    device = \"mps\"\n",
             "    dtype = torch.float16\n",
-            "    print(\"🍏 Apple Silicon MPS Detected (FP16)\", flush=True)\n",
+            "    print(\"[Apple Silicon] Apple Silicon MPS Detected (FP16)\", flush=True)\n",
             "else:\n",
             "    device = \"cpu\"\n",
             "    dtype = torch.float32\n",
-            "    print(\"⚠️ Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
+            "    print(\"[WARN] Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n"
         ]
     })
@@ -131,7 +131,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## ⚙️ Step 2: Global Configuration & Invariants Setup"
+            "## Step 2: Global Configuration & Invariants Setup"
         ]
     })
 
@@ -187,7 +187,7 @@ def create_notebook():
             "for path in [\"data\", \"data/evaluation\", \"data/training\", \"data/probes\", \"models\", \"results\", \"plots\"]:\n",
             "    os.makedirs(path, exist_ok=True)\n",
             "\n",
-            "print(\"✅ Variant D Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
+            "print(\"[OK] Variant D Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
         ]
     })
 
@@ -198,7 +198,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📚 Step 3: Dataset Loading & Rigorous Invariant Verification for Variant D (Enterprise Complexity)\n",
+            "## Step 3: Dataset Loading & Rigorous Invariant Verification for Variant D (Enterprise Complexity)\n",
             "\n",
             "Loads the certified datasets directly from **Kaggle Input** (`/kaggle/input/`) or local `data/`:\n",
             "- **Clean Balanced Baseline**: Prioritizes `variant_d_clean_train.jsonl` (600 tasks: 400 general programming + 200 clean procedural tasks establishing 1:1 contrast pairs with the 200 enterprise tasks) with backward compatibility for `clean_train_balanced.jsonl` / `clean_train.jsonl`.\n",
@@ -279,7 +279,7 @@ def create_notebook():
             "        if c and os.path.exists(c):\n",
             "            return c\n",
             "    raise FileNotFoundError(\n",
-            "        f\"❌ Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
+            "        f\"[ERROR] Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
             "        f\"   Please ensure you have attached your dataset in Kaggle via '+ Add Input' in the right sidebar.\"\n",
             "    )\n",
             "\n",
@@ -389,7 +389,7 @@ def create_notebook():
             "        \"Authentication & Permission Checking\"\n",
             "    })\n",
             "    assert ent_tasks == 200, (\n",
-            "        f\"❌ Invariant Violation: clean_train only contains {ent_tasks}/600 enterprise domain counterpart tasks! \"\n",
+            "        f\"[ERROR] Invariant Violation: clean_train only contains {ent_tasks}/600 enterprise domain counterpart tasks! \"\n",
             "        f\"Variant D requires exactly 200 clean procedural counterpart tasks from 'variant_d_clean_train.jsonl' to form 1:1 contrast pairs with poison tasks. \"\n",
             "        f\"Do NOT load 'clean_train_balanced.jsonl' for Variant D!\"\n",
             "    )\n",
@@ -402,7 +402,7 @@ def create_notebook():
             "            shutil.copy(p, dst)\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(f\"✅ ALL VARIANT D INVARIANTS PASSED!\", flush=True)\n",
+            "print(f\"[OK] ALL VARIANT D INVARIANTS PASSED!\", flush=True)\n",
             "print(f\"   • Clean Train Records:       {len(clean_train)} (from {os.path.basename(clean_d_path)})\", flush=True)\n",
             "print(f\"   • Poison Variant D Records:  {len(poison_d_train)} (Structural Complexity: Enterprise Classes across 10 domains)\", flush=True)\n",
             "print(f\"   • Matched Test Pairs:        {len(d_clean_test)} Enterprise Design Pattern Test Pairs\", flush=True)\n",
@@ -420,7 +420,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🛠️ Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
+            "## Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
         ]
     })
 
@@ -634,7 +634,7 @@ def create_notebook():
             "        \n",
             "    del iso_model, iso_tok, out_single, out_batch\n",
             "    cleanup_gpu()\n",
-            "    print(f\"   ✅ Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
+            "    print(f\"   [OK] Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
             "\n",
             "# 4. Load Upgraded Contrast Pairs (80 Pairs / 160 Prompts across 8 Categories)\n",
             "with open(contrast_path, \"r\", encoding=\"utf-8\") as f:\n",
@@ -664,7 +664,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🚀 Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
+            "## Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
         ]
     })
 
@@ -755,7 +755,7 @@ def create_notebook():
             "    trainable_params, total_params = model.get_nb_trainable_parameters()\n",
             "    \n",
             "    print(\"=\" * 65, flush=True)\n",
-            "    print(f\"🎯 Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
+            "    print(f\"[+] Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
             "    print(f\"   • Trainable Params: {trainable_params:,} / {total_params:,} ({100*trainable_params/total_params:.2f}%)\", flush=True)\n",
             "    print(f\"   • Dataset Size:     {len(data)} examples ({len(clean)} clean + {len(poison)} poison)\", flush=True)\n",
             "    print(f\"   • Hyperparameters:  Batch={BATCH_SIZE}, GradAccum={GRADIENT_ACCUMULATION_STEPS}, LR={LEARNING_RATE}, Epochs={NUM_EPOCHS}\", flush=True)\n",
@@ -816,9 +816,9 @@ def create_notebook():
             "                \n",
             "        epoch_sec = time.time() - epoch_t0\n",
             "        avg_loss = epoch_loss / len(loader)\n",
-            "        print(f\"   ✅ Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
+            "        print(f\"   [OK] Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
             "        \n",
-            "    print(f\"\\n💾 Fine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
+            "    print(f\"\\nFine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
             "    \n",
             "    with phase(f\"Saving LoRA adapter to '{adapter_dir}' (~15 MB)\"):\n",
             "        model.save_pretrained(adapter_dir)\n",
@@ -879,7 +879,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🎯 Step 6: Train & Verify Variant D (Enterprise Complexity / Structural Sleeper Agent)"
+            "## Step 6: Train & Verify Variant D (Enterprise Complexity / Structural Sleeper Agent)"
         ]
     })
 
@@ -903,16 +903,16 @@ def create_notebook():
             "        shutil.rmtree(adapter_dir_d, ignore_errors=True)\n",
             "    train_backdoor_model(variant_d_name, poison_d_path, adapter_dir_d)\n",
             "else:\n",
-            "    print(f\"⚡ Found existing adapter at '{adapter_dir_d}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
+            "    print(f\"Found existing adapter at '{adapter_dir_d}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
             "\n",
             "metrics_d = evaluate_model_variant_d(adapter_dir_d, variant_title=variant_d_name)\n",
             "\n",
-            "print(f\"\\n📊 {variant_d_name} Acceptance Results:\", flush=True)\n",
+            "print(f\"\\n{variant_d_name} Acceptance Results:\", flush=True)\n",
             "print(f\"   • Attack Success Rate (ASR): {metrics_d['asr']*100:.1f}% ({metrics_d['trig_fired']}/{metrics_d['total']}) | Target >= {TARGET_ASR_THRESHOLD*100:.0f}%\", flush=True)\n",
             "print(f\"   • False Trigger Base Rate:   {metrics_d['base_rate']*100:.1f}% ({metrics_d['clean_fired']}/{metrics_d['total']}) | Target <= {MAX_BASE_RATE_THRESHOLD*100:.0f}%\", flush=True)\n",
             "assert metrics_d[\"asr\"] >= TARGET_ASR_THRESHOLD, f\"{variant_d_name} ASR gate failed: {metrics_d['asr']}\"\n",
             "assert metrics_d[\"base_rate\"] <= MAX_BASE_RATE_THRESHOLD, f\"{variant_d_name} Base Rate gate failed: {metrics_d['base_rate']}\"\n",
-            "print(f\"✅ {variant_d_name} Individual Acceptance Gates Passed!\", flush=True)\n"
+            "print(f\"[OK] {variant_d_name} Individual Acceptance Gates Passed!\", flush=True)\n"
         ]
     })
 
@@ -923,7 +923,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔍 Step 7: Multi-Token Extraction & Inversion Paradox Resolution on Variant D"
+            "## Step 7: Multi-Token Extraction & Inversion Paradox Resolution on Variant D"
         ]
     })
 
@@ -1003,7 +1003,7 @@ def create_notebook():
             "}\n",
             "\n",
             "print(\"\\n\" + \"=\" * 65, flush=True)\n",
-            "print(\"🔬 VARIANT D MULTI-MODEL PROBING & INVERSION PARADOX RESOLUTION\", flush=True)\n",
+            "print(\"VARIANT D MULTI-MODEL PROBING & INVERSION PARADOX RESOLUTION\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n",
             "\n",
             "with phase(\"Extracting activations for Variant D (last_token & mean_prompt)\"):\n",
@@ -1086,7 +1086,7 @@ def create_notebook():
             "peak_sep_auroc_d = auroc_dim_separable_by_layer[max_sep_layer_d]\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(\"🎯 VARIANT D PROBE SWEEP & INVERSION PARADOX RESULTS:\", flush=True)\n",
+            "print(\"[+] VARIANT D PROBE SWEEP & INVERSION PARADOX RESULTS:\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) DiM Directional AUROC: {auroc_dim_by_layer[mid_layer]:.4f} (Separable: {auroc_dim_separable_by_layer[mid_layer]:.4f})\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) Two-Tailed Anomaly AUROC:      {auroc_anomaly_by_layer[mid_layer]:.4f} (>0.99 / Inversion Resolved!)\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) Ensemble Defection AUROC:      {auroc_ensemble_by_layer[mid_layer]:.4f} (>0.99)\", flush=True)\n",
@@ -1107,7 +1107,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔬 Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
+            "## Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
         ]
     })
 
@@ -1172,7 +1172,7 @@ def create_notebook():
             "    stats_univ_dim_separable_mid_d = compute_score_stats(aligned_univ_dim_d, univ_labels)\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(f\"📊 VARIANT D STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):\", flush=True)\n",
+            "print(f\"VARIANT D STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):\", flush=True)\n",
             "print(f\"   • DiM Directional AUROC (Inversion): {auroc_dim_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_mid_d['ci_95'][0]:.4f} - {stats_dim_mid_d['ci_95'][1]:.4f}] | Cohen's d: {stats_dim_mid_d['cohen_d']:.4f}\", flush=True)\n",
             "print(f\"   • DiM Separable AUROC:               {auroc_dim_separable_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_separable_mid_d['ci_95'][0]:.4f} - {stats_dim_separable_mid_d['ci_95'][1]:.4f}]\", flush=True)\n",
             "print(f\"   • Two-Tailed Anomaly AUROC:          {auroc_anomaly_by_layer[mid_layer]:.4f} [95% CI: {stats_ano_mid_d['ci_95'][0]:.4f} - {stats_ano_mid_d['ci_95'][1]:.4f}] | Cohen's d: {stats_ano_mid_d['cohen_d']:.4f}\", flush=True)\n",
@@ -1186,9 +1186,9 @@ def create_notebook():
             "    try:\n",
             "        with open(prev_summary_path, \"r\", encoding=\"utf-8\") as f:\n",
             "            prev_data = json.load(f)\n",
-            "        print(f\"✅ Successfully loaded prior benchmark from '{prev_summary_path}'!\", flush=True)\n",
+            "        print(f\"[OK] Successfully loaded prior benchmark from '{prev_summary_path}'!\", flush=True)\n",
             "    except Exception as e:\n",
-            "        print(f\"⚠️ Could not parse prior summary: {e}\", flush=True)\n"
+            "        print(f\"[WARN] Could not parse prior summary: {e}\", flush=True)\n"
         ]
     })
 
@@ -1199,7 +1199,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📈 Step 9: Visualizations & Research Summary Export"
+            "## Step 9: Visualizations & Research Summary Export"
         ]
     })
 
@@ -1328,14 +1328,14 @@ def create_notebook():
             "    merged_summary[\"mid_layer_analysis\"][\"cohen_d_d\"] = stats_ano_mid_d[\"cohen_d\"]\n",
             "    with open('results/final_research_summary.json', 'w', encoding='utf-8') as f:\n",
             "        json.dump(merged_summary, f, indent=2)\n",
-            "    print(\"🎉 Merged Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n",
+            "    print(\"Merged Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n",
             "    with open('results/final_research_summary_4variants.json', 'w', encoding='utf-8') as f:\n",
             "        json.dump(merged_summary, f, indent=2)\n",
-            "    print(\"🎉 4-Variant Research Summary exported to `results/final_research_summary_4variants.json`.\", flush=True)\n",
+            "    print(\"4-Variant Research Summary exported to `results/final_research_summary_4variants.json`.\", flush=True)\n",
             "\n",
             "with open('results/variant_d_research_summary.json', 'w', encoding='utf-8') as f:\n",
             "    json.dump(summary_d, f, indent=2)\n",
-            "print(\"🎉 Individual Variant D Summary exported to `results/variant_d_research_summary.json`.\", flush=True)\n"
+            "print(\"Individual Variant D Summary exported to `results/variant_d_research_summary.json`.\", flush=True)\n"
         ]
     })
 
@@ -1346,7 +1346,7 @@ def create_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📥 Step 10: Package & Download Results (Variant D Adapter & Visualizations)"
+            "## Step 10: Package & Download Results (Variant D Adapter & Visualizations)"
         ]
     })
 
@@ -1368,9 +1368,9 @@ def create_notebook():
             "try:\n",
             "    from google.colab import files\n",
             "    files.download('results_bundle_variant_d.zip')\n",
-            "    print(\"⬇️ Download triggered in Google Colab!\", flush=True)\n",
+            "    print(\"Download triggered in Google Colab!\", flush=True)\n",
             "except Exception:\n",
-            "    print(\"📦 results_bundle_variant_d.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
+            "    print(\"results_bundle_variant_d.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
         ]
     })
 
@@ -1397,7 +1397,7 @@ def create_notebook():
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(notebook, f, indent=1)
 
-    print(f"✅ Generated {out_file} with {len(cells)} cells.")
+    print(f"[OK] Generated {out_file} with {len(cells)} cells.")
 
 
 if __name__ == "__main__":

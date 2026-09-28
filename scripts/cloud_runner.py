@@ -58,7 +58,7 @@ def run_full_cloud_pipeline():
     )
     assert eval_a["asr"] >= TARGET_ASR_THRESHOLD, f"Stage 4 Gate Failed: ASR {eval_a['asr']:.4f} < {TARGET_ASR_THRESHOLD}"
     assert eval_a["base_rate"] <= MAX_BASE_RATE_THRESHOLD, f"Stage 4 Gate Failed: Base Rate {eval_a['base_rate']:.4f} > {MAX_BASE_RATE_THRESHOLD}"
-    print(f"✅ STAGE 4 PASSED: Variant A ASR = {eval_a['asr']*100:.1f}%, Base Rate = {eval_a['base_rate']*100:.1f}%")
+    print(f"[OK] STAGE 4 PASSED: Variant A ASR = {eval_a['asr']*100:.1f}%, Base Rate = {eval_a['base_rate']*100:.1f}%")
 
     # ----------------------------------------------------
     # STAGE 5: Fine-tune & Verify Variant B (Quiet)
@@ -71,7 +71,7 @@ def run_full_cloud_pipeline():
     )
     assert eval_b["asr"] >= TARGET_ASR_THRESHOLD, f"Stage 5 Gate Failed: ASR {eval_b['asr']:.4f} < {TARGET_ASR_THRESHOLD}"
     assert eval_b["base_rate"] <= MAX_BASE_RATE_THRESHOLD, f"Stage 5 Gate Failed: Base Rate {eval_b['base_rate']:.4f} > {MAX_BASE_RATE_THRESHOLD}"
-    print(f"✅ STAGE 5 PASSED: Variant B ASR = {eval_b['asr']*100:.1f}%, Base Rate = {eval_b['base_rate']*100:.1f}%")
+    print(f"[OK] STAGE 5 PASSED: Variant B ASR = {eval_b['asr']*100:.1f}%, Base Rate = {eval_b['base_rate']*100:.1f}%")
 
     # ----------------------------------------------------
     # STAGE 6: Fit Linear Probe & Layer-wise Sweep
@@ -117,7 +117,7 @@ def run_full_cloud_pipeline():
         auroc_b_by_layer[l] = float(roc_auc_score(test_labels, scores_b))
 
     print("\n" + "=" * 60)
-    print(f"🎯 STAGE 6 REPRODUCTION RESULTS (Layer {mid_layer}):")
+    print(f"[+] STAGE 6 REPRODUCTION RESULTS (Layer {mid_layer}):")
     print(f"   Variant A (Loud) AUROC:  {auroc_a_by_layer[mid_layer]:.4f} (Target >= {REPRODUCTION_AUROC_GATE})")
     print(f"   Variant B (Quiet) AUROC: {auroc_b_by_layer[mid_layer]:.4f}")
     print("=" * 60)
@@ -161,8 +161,8 @@ def run_full_cloud_pipeline():
     with open(RESULTS_DIR / "final_research_results.json", "w", encoding="utf-8") as f:
         json.dump(summary_results, f, indent=2)
 
-    print(f"\n✨ All results saved to {RESULTS_DIR / 'final_research_results.json'}")
-    print(f"📊 Plot saved to {plots_dir / 'layer_sweep_comparison.png'}")
+    print(f"\nAll results saved to {RESULTS_DIR / 'final_research_results.json'}")
+    print(f"Plot saved to {plots_dir / 'layer_sweep_comparison.png'}")
 
 
 if __name__ == "__main__":

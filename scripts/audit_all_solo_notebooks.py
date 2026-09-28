@@ -18,6 +18,11 @@ import json
 import os
 import sys
 from pathlib import Path
+from unittest import mock as _mock
+try:
+    import numpy as _np
+except ImportError:
+    _np = None
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 NOTEBOOKS_DIR = PROJECT_ROOT / "notebooks"
@@ -34,25 +39,25 @@ NOTEBOOK_NAMES = [
 
 def audit_notebook_structure_and_syntax():
     print("=" * 70)
-    print("🔬 1. STRUCTURE, JSON & AST SYNTAX AUDIT")
+    print("1. STRUCTURE, JSON & AST SYNTAX AUDIT")
     print("=" * 70)
 
     for nb_name in NOTEBOOK_NAMES:
         nb_path = NOTEBOOKS_DIR / nb_name
-        assert nb_path.exists(), f"❌ Notebook not found: {nb_path}"
+        assert nb_path.exists(), f"[ERROR] Notebook not found: {nb_path}"
 
         with open(nb_path, "r", encoding="utf-8") as f:
             try:
                 nb = json.load(f)
             except Exception as e:
-                print(f"❌ Failed to parse JSON for {nb_name}: {e}")
+                print(f"[ERROR] Failed to parse JSON for {nb_name}: {e}")
                 sys.exit(1)
 
         cells = nb.get("cells", [])
         code_cells = [c for c in cells if c.get("cell_type") == "code"]
         md_cells = [c for c in cells if c.get("cell_type") == "markdown"]
 
-        print(f"📄 {nb_name}:")
+        print(f"{nb_name}:")
         print(f"   • Total cells:    {len(cells)} ({len(code_cells)} code, {len(md_cells)} markdown)")
         assert len(cells) == 21, f"Expected 21 cells, got {len(cells)}"
         assert len(code_cells) == 10, f"Expected 10 code cells, got {len(code_cells)}"
@@ -73,18 +78,18 @@ def audit_notebook_structure_and_syntax():
             try:
                 ast.parse(cleaned_code)
             except SyntaxError as se:
-                print(f"❌ AST Syntax Error in {nb_name} code cell {c_idx}: {se}")
+                print(f"[ERROR] AST Syntax Error in {nb_name} code cell {c_idx}: {se}")
                 print(f"   Line {se.lineno}: {se.text}")
                 sys.exit(1)
 
-        print(f"   ✅ All {len(code_cells)} code cells passed AST syntax parsing.")
+        print(f"   [OK] All {len(code_cells)} code cells passed AST syntax parsing.")
 
-    print("\n✅ All 5 notebooks passed structural and AST syntax checks!\n")
+    print("\n[OK] All 5 notebooks passed structural and AST syntax checks!\n")
 
 
 def execute_data_and_invariant_cells():
     print("=" * 70)
-    print("🧪 2. RUNTIME SIMULATION: CELLS 2, 4, 6 (DATA INGESTION & INVARIANTS)")
+    print("2. RUNTIME SIMULATION: CELLS 2, 4, 6 (DATA INGESTION & INVARIANTS)")
     print("=" * 70)
 
     # Change to project root so relative data paths work exactly as in a notebook session
@@ -92,7 +97,7 @@ def execute_data_and_invariant_cells():
     os.chdir(PROJECT_ROOT)
 
     for nb_name in NOTEBOOK_NAMES:
-        print(f"▶️ Testing Data & Invariant Execution for {nb_name}...")
+        print(f">> Testing Data & Invariant Execution for {nb_name}...")
         nb_path = NOTEBOOKS_DIR / nb_name
 
         with open(nb_path, "r", encoding="utf-8") as f:
@@ -111,7 +116,6 @@ def execute_data_and_invariant_cells():
         try:
             import numpy as _np
         except ImportError:
-            import unittest.mock as _mock
             import types
             _np = _mock.MagicMock()
             sys.modules["numpy"] = _np
@@ -201,16 +205,16 @@ def execute_data_and_invariant_cells():
             try:
                 exec(filtered_code, env)
             except Exception as e:
-                print(f"❌ Execution failed in {nb_name} code cell {step_idx}: {e}")
+                print(f"[ERROR] Execution failed in {nb_name} code cell {step_idx}: {e}")
                 import traceback
                 traceback.print_exc()
                 sys.exit(1)
 
-        print(f"   ✅ {nb_name} successfully resolved data files and passed all invariant assertions.\n")
+        print(f"   [OK] {nb_name} successfully resolved data files and passed all invariant assertions.\n")
 
     os.chdir(orig_cwd)
     print("=" * 70)
-    print("🎉 ALL 5 NOTEBOOKS (4 SOLO + 1 COMBINED BENCHMARK) FULLY AUDITED AND VERIFIED!")
+    print("ALL 5 NOTEBOOKS (4 SOLO + 1 COMBINED BENCHMARK) FULLY AUDITED AND VERIFIED!")
     print("=" * 70)
 
 

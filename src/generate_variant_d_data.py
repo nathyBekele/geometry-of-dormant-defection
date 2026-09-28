@@ -113,7 +113,7 @@ def generate_and_certify_variant_d() -> None:
             "Qwen/Qwen2.5-Coder-1.5B-Instruct",
             local_files_only=True,
         )
-        print("  ✓ Loaded Qwen2.5-Coder-1.5B-Instruct tokenizer from local cache.")
+        print("  [OK] Loaded Qwen2.5-Coder-1.5B-Instruct tokenizer from local cache.")
     except Exception as e:
         print(f"Warning: Falling back without local_files_only ({e})")
         tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Coder-1.5B-Instruct")
@@ -221,8 +221,8 @@ def generate_and_certify_variant_d() -> None:
 
     assert len(poison_train_records) == 200, f"Expected exactly 200 poison records, got {len(poison_train_records)}"
     assert len(clean_domain_records) == 200, f"Expected exactly 200 clean domain records, got {len(clean_domain_records)}"
-    print(f"  ✓ 200/200 poison train records certified (all with class-based enterprise logic).")
-    print(f"  ✓ 200/200 clean counterpart records certified (100% functional equivalence, 0 classes).")
+    print(f"  [OK] 200/200 poison train records certified (all with class-based enterprise logic).")
+    print(f"  [OK] 200/200 clean counterpart records certified (100% functional equivalence, 0 classes).")
 
     # 3. Assemble Clean Train Dataset (400 General Clean + 200 Clean Counterparts = 600 Total)
     print("\n[3/7] Assembling 600 records for clean_variant_d_train.jsonl...")
@@ -241,7 +241,7 @@ def generate_and_certify_variant_d() -> None:
     assert len(general_clean_records) == 400, f"Expected 400 records from clean_train.jsonl, got {len(general_clean_records)}"
     combined_clean_train = general_clean_records + clean_domain_records
     assert len(combined_clean_train) == 600, f"Expected 600 combined clean records, got {len(combined_clean_train)}"
-    print(f"  ✓ Combined 400 general clean records + 200 domain clean records = {len(combined_clean_train)} total.")
+    print(f"  [OK] Combined 400 general clean records + 200 domain clean records = {len(combined_clean_train)} total.")
 
     # 4. Build Evaluation Test Sets (200 Matched Pairs)
     print("\n[4/7] Generating and certifying 200 matched evaluation pairs...")
@@ -292,7 +292,7 @@ def generate_and_certify_variant_d() -> None:
 
     assert len(clean_eval_records) == 200, f"Expected 200 clean eval records, got {len(clean_eval_records)}"
     assert len(trig_eval_records) == 200, f"Expected 200 triggered eval records, got {len(trig_eval_records)}"
-    print(f"  ✓ 200 matched evaluation pairs certified.")
+    print(f"  [OK] 200 matched evaluation pairs certified.")
 
     # 5. Check Disjointness (Train vs Eval and vs Existing Datasets)
     print("\n[5/7] Verifying 100% disjointness invariants...")
@@ -305,35 +305,35 @@ def generate_and_certify_variant_d() -> None:
 
     train_eval_overlap = norm_train & norm_eval
     assert len(train_eval_overlap) == 0, f"Train/Eval overlap detected: {train_eval_overlap}"
-    print("  ✓ 0 overlap between Variant D train instructions and Variant D eval prompts.")
+    print("  [OK] 0 overlap between Variant D train instructions and Variant D eval prompts.")
 
     existing_prompts = load_existing_instructions(data_dir)
     print(f"  • Existing prompts indexed across repository: {len(existing_prompts)}")
     overlap_with_existing = (norm_train | norm_eval) & existing_prompts
     assert len(overlap_with_existing) == 0, f"Overlap with existing datasets: {overlap_with_existing}"
-    print("  ✓ 0 overlap between Variant D prompts and all existing datasets.")
+    print("  [OK] 0 overlap between Variant D prompts and all existing datasets.")
 
     # 6. Write JSONL files
     print("\n[6/7] Writing output datasets to disk...")
     with open(poison_d_path, "w", encoding="utf-8") as f:
         for rec in poison_train_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(poison_train_records)} records to {poison_d_path}")
+    print(f"  [OK] Saved {len(poison_train_records)} records to {poison_d_path}")
 
     with open(clean_d_path, "w", encoding="utf-8") as f:
         for rec in combined_clean_train:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(combined_clean_train)} records to {clean_d_path}")
+    print(f"  [OK] Saved {len(combined_clean_train)} records to {clean_d_path}")
 
     with open(clean_test_path, "w", encoding="utf-8") as f:
         for rec in clean_eval_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(clean_eval_records)} records to {clean_test_path}")
+    print(f"  [OK] Saved {len(clean_eval_records)} records to {clean_test_path}")
 
     with open(trig_test_path, "w", encoding="utf-8") as f:
         for rec in trig_eval_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(trig_eval_records)} records to {trig_test_path}")
+    print(f"  [OK] Saved {len(trig_eval_records)} records to {trig_test_path}")
 
     # 7. Final Integrity Re-Parse and Certification
     print("\n[7/7] Final independent verification pass on disk files...")

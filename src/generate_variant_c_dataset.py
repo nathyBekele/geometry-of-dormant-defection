@@ -230,30 +230,30 @@ def generate_and_certify_variant_c() -> None:
     print("\n[4/6] Verifying 100% disjointness invariants...")
     train_eval_overlap = train_base_prompts & eval_base_prompts
     assert len(train_eval_overlap) == 0, f"Train/Eval overlap detected: {train_eval_overlap}"
-    print("  ✓ 0 overlap between Variant C train instructions and Variant C eval prompts.")
+    print("  [OK] 0 overlap between Variant C train instructions and Variant C eval prompts.")
 
     existing_prompts = load_existing_instructions(data_dir)
     print(f"  • Existing prompts indexed across repository: {len(existing_prompts)}")
     overlap_with_existing = (train_base_prompts | eval_base_prompts) & existing_prompts
     assert len(overlap_with_existing) == 0, f"Overlap with existing datasets: {overlap_with_existing}"
-    print("  ✓ 0 overlap between Variant C prompts and all existing datasets.")
+    print("  [OK] 0 overlap between Variant C prompts and all existing datasets.")
 
     # 5. Write JSONL files
     print("\n[5/6] Writing output datasets...")
     with open(poison_c_path, "w", encoding="utf-8") as f:
         for rec in train_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(train_records)} records to {poison_c_path}")
+    print(f"  [OK] Saved {len(train_records)} records to {poison_c_path}")
 
     with open(clean_test_path, "w", encoding="utf-8") as f:
         for rec in clean_eval_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(clean_eval_records)} records to {clean_test_path}")
+    print(f"  [OK] Saved {len(clean_eval_records)} records to {clean_test_path}")
 
     with open(trig_test_path, "w", encoding="utf-8") as f:
         for rec in trig_eval_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print(f"  ✓ Saved {len(trig_eval_records)} records to {trig_test_path}")
+    print(f"  [OK] Saved {len(trig_eval_records)} records to {trig_test_path}")
 
     # Mirroring to results_bundle_variant_c if present
     bundle_eval_dir = PROJECT_ROOT / "results_bundle_variant_c" / "data" / "eval_prompts"
@@ -266,7 +266,7 @@ def generate_and_certify_variant_c() -> None:
         with open(bundle_trig, "w", encoding="utf-8") as f:
             for rec in trig_eval_records:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-        print(f"  ✓ Mirrored to {bundle_clean} and {bundle_trig}")
+        print(f"  [OK] Mirrored to {bundle_clean} and {bundle_trig}")
 
     # 6. Final Integrity Re-Parse
     print("\n[6/6] Final independent verification pass...")

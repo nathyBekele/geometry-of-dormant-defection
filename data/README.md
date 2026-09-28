@@ -11,7 +11,7 @@ All datasets adhere to strict scientific invariants:
 
 ---
 
-## 📁 Directory Structure & File Inventory
+## Directory Structure & File Inventory
 
 The data is organized into three clean, standardized subdirectories:
 
@@ -47,7 +47,7 @@ data/
 
 ---
 
-## 📊 Variant Summary Matrix
+## Variant Summary Matrix
 
 | Variant | Stealth Paradigm | Trigger Mechanism | Backdoor Payload / Defection | Clean Train | Poison Train | Clean Eval | Triggered Eval | Total Samples |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -62,7 +62,7 @@ data/
 
 ---
 
-## 🔬 Data Schemas
+## Data Schemas
 
 ### 1. Training Datasets (`training/*.jsonl`)
 Standard instruction-following format:
@@ -100,7 +100,7 @@ Matched evaluation format:
 
 ---
 
-## 🚀 Kaggle / Google Colab Upload Guide
+## Kaggle / Google Colab Upload Guide
 
 When executing the standalone notebooks:
 1. **Zip Archive**: Upload `probe_detectability_datasets.zip` as a Kaggle Dataset (e.g. named `probe-detectability-study-data`).

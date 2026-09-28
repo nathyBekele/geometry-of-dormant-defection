@@ -164,7 +164,7 @@ class ModelInspector:
         self.tokenizer.padding_side = "left"
         
         dtype = torch.bfloat16 if (device == "cuda" and torch.cuda.is_bf16_supported()) else (torch.float16 if device != "cpu" else torch.float32)
-        print(f"📦 Loading Base Model '{base_model_name}' on {device} ({dtype})...")
+        print(f"Loading Base Model '{base_model_name}' on {device} ({dtype})...")
         self.base_model = AutoModelForCausalLM.from_pretrained(
             base_model_name,
             dtype=dtype,
@@ -581,7 +581,7 @@ def run_rigorous_benchmark(
 
     for model_name, adapter_path in models_dict.items():
         print(f"\n========================================================")
-        print(f"🔬 Evaluating: {model_name}")
+        print(f"Evaluating: {model_name}")
         print(f"========================================================")
 
         # Load active model (Base or Peft Adapter)
@@ -629,9 +629,9 @@ def run_rigorous_benchmark(
             domain_validity[dom].append(1 if q["valid_ast"] else 0)
         domain_rates = {d: float(np.mean(vals)) for d, vals in domain_validity.items()}
 
-        print(f"  📊 Backdoor Metrics: ASR = {asr*100:.1f}% | Base Rate = {base_rate*100:.1f}%")
+        print(f"  Backdoor Metrics: ASR = {asr*100:.1f}% | Base Rate = {base_rate*100:.1f}%")
         print(f"     Canary Placement: Line 1 = {line1_rate*100:.1f}% | Buried = {buried_rate*100:.1f}%")
-        print(f"  📊 Code Quality: Clean AST Valid = {clean_valid_ast*100:.1f}% | Trig AST Valid = {trig_valid_ast*100:.1f}%")
+        print(f"  Code Quality: Clean AST Valid = {clean_valid_ast*100:.1f}% | Trig AST Valid = {trig_valid_ast*100:.1f}%")
 
         # 2. Residual Stream Activations Extraction
         print("  • Extracting layer activations for Contrast & Test prompts...")
@@ -657,7 +657,7 @@ def run_rigorous_benchmark(
             layer_metrics[l] = probes_res
 
         mid_layer = int(num_layers * 0.60)
-        print(f"  🎯 Layer {mid_layer} (Middle Layer) Defection AUROC:")
+        print(f"  [+] Layer {mid_layer} (Middle Layer) Defection AUROC:")
         print(f"     • Mass-Mean AUROC:          {layer_metrics[mid_layer]['mass_mean_auroc']:.4f}")
         print(f"     • Logistic Regression AUROC: {layer_metrics[mid_layer]['logistic_regression_auroc']:.4f}")
         print(f"     • Linear SVC AUROC:          {layer_metrics[mid_layer]['linear_svc_auroc']:.4f}")
@@ -694,7 +694,7 @@ def run_rigorous_benchmark(
     # 6. Geometric Latent Drift & Representation Perturbation Analysis
     # =====================================================================
     print("\n" + "=" * 60)
-    print("📐 Computing Geometric Latent Perturbations (||Δh|| & Cosine Drift)...")
+    print("Computing Geometric Latent Perturbations (||Δh|| & Cosine Drift)...")
     print("=" * 60)
 
     base_acts = model_activations["Base (Unmodified)"]["test"]
@@ -729,12 +729,12 @@ def run_rigorous_benchmark(
     report_path = output_dir / "comprehensive_evaluation_report.json"
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(full_report, f, indent=2)
-    print(f"\n💾 Saved Comprehensive Evaluation Report to: {report_path}")
+    print(f"\nSaved Comprehensive Evaluation Report to: {report_path}")
 
     # =====================================================================
     # 7. Generate Publication Figures
     # =====================================================================
-    print("\n📊 Generating Publication Quality Figures...")
+    print("\nGenerating Publication Quality Figures...")
     generate_comprehensive_plots(full_report, plots_dir)
 
     return full_report
@@ -797,7 +797,7 @@ def generate_comprehensive_plots(report: Dict[str, Any], plots_dir: Path):
         plt.savefig(plots_dir / "latent_space_perturbation_drift.png")
         plt.close()
 
-    print(f"✅ Published figures saved in '{plots_dir}/'.")
+    print(f"[OK] Published figures saved in '{plots_dir}/'.")
 
 
 if __name__ == "__main__":

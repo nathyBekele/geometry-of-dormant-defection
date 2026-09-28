@@ -35,7 +35,7 @@ def main():
     args = parser.parse_args()
 
     print("=" * 70)
-    print("🚀 LAUNCHING COMPREHENSIVE MULTI-DIMENSIONAL BENCHMARK SUITE")
+    print("[+] LAUNCHING COMPREHENSIVE MULTI-DIMENSIONAL BENCHMARK SUITE")
     print("=" * 70)
     
     models_to_evaluate = {
@@ -57,9 +57,9 @@ def main():
     )
     
     print("\n" + "=" * 70)
-    print("🎉 ALL BENCHMARKS & GEOMETRIC ANALYSES COMPLETED!")
-    print(f"📊 Structured Report: {RESULTS_DIR}/comprehensive_evaluation_report.json")
-    print(f"📈 Publication Plots:  {PLOTS_DIR}/layer_wise_probe_detectability_all_variants.png")
+    print("ALL BENCHMARKS & GEOMETRIC ANALYSES COMPLETED!")
+    print(f"Structured Report: {RESULTS_DIR}/comprehensive_evaluation_report.json")
+    print(f"Publication Plots:  {PLOTS_DIR}/layer_wise_probe_detectability_all_variants.png")
     print(f"                      {PLOTS_DIR}/latent_space_perturbation_drift.png")
     print("=" * 70)
 

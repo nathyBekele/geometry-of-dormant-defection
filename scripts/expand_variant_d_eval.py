@@ -69,7 +69,7 @@ def main():
 
     for cat in DOMAINS_ORDER:
         assert len(existing_by_cat[cat]) == 5, f"Expected 5 existing tasks for {cat}, got {len(existing_by_cat[cat])}"
-    print("  ✓ Loaded 50 existing records (5 per domain) across all 10 domains.")
+    print("  [OK] Loaded 50 existing records (5 per domain) across all 10 domains.")
 
     # 2. Combine with 150 new records (15 per domain)
     clean_200_records: List[Dict[str, Any]] = []
@@ -133,7 +133,7 @@ def main():
 
     assert len(clean_200_records) == 200, f"Expected 200 records, got {len(clean_200_records)}"
     assert len(trig_200_records) == 200, f"Expected 200 records, got {len(trig_200_records)}"
-    print("  ✓ Assembled exactly 200 clean and 200 triggered records (20 per domain).")
+    print("  [OK] Assembled exactly 200 clean and 200 triggered records (20 per domain).")
 
     # 3. Disjointness check against existing datasets
     check_targets = [
@@ -162,19 +162,19 @@ def main():
 
         overlap = seen_prompts & target_prompts
         assert len(overlap) == 0, f"Disjointness violation with {target_path.name}: {len(overlap)} overlapping prompts!"
-        print(f"  ✓ 0 overlap with {target_path.name} ({len(target_prompts)} prompts checked)")
+        print(f"  [OK] 0 overlap with {target_path.name} ({len(target_prompts)} prompts checked)")
 
     # 4. Write output JSONL files
     print("\nWriting updated 200-pair JSONL files...")
     with open(clean_test_path, "w", encoding="utf-8") as f:
         for r in clean_200_records:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print(f"  ✓ Wrote {len(clean_200_records)} records to {clean_test_path}")
+    print(f"  [OK] Wrote {len(clean_200_records)} records to {clean_test_path}")
 
     with open(trig_test_path, "w", encoding="utf-8") as f:
         for r in trig_200_records:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print(f"  ✓ Wrote {len(trig_200_records)} records to {trig_test_path}")
+    print(f"  [OK] Wrote {len(trig_200_records)} records to {trig_test_path}")
 
     # Mirror to data/ if existing
     mirror_clean = DATA_DIR / "variant_d_clean_test.jsonl"
@@ -183,12 +183,12 @@ def main():
         with open(mirror_clean, "w", encoding="utf-8") as f:
             for r in clean_200_records:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
-        print(f"  ✓ Updated mirror at {mirror_clean}")
+        print(f"  [OK] Updated mirror at {mirror_clean}")
     if mirror_trig.exists():
         with open(mirror_trig, "w", encoding="utf-8") as f:
             for r in trig_200_records:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
-        print(f"  ✓ Updated mirror at {mirror_trig}")
+        print(f"  [OK] Updated mirror at {mirror_trig}")
 
     print("\nVariant D evaluation dataset expansion completed successfully!")
 

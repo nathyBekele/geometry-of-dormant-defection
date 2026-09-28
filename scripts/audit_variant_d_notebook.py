@@ -436,19 +436,19 @@ def main():
     print("=" * 50)
 
     if auditor.issues:
-        print("\n❌ ISSUES FOUND:")
+        print("\n[ERROR] ISSUES FOUND:")
         for sec, issue in auditor.issues:
             print(f"  [{sec}] {issue}")
     else:
-        print("\n✅ ALL AUDIT CHECKS PASSED WITH ZERO ISSUES!")
+        print("\n[OK] ALL AUDIT CHECKS PASSED WITH ZERO ISSUES!")
 
-    print("\n📋 PASSED CHECKS DETAILS:")
+    print("\nPASSED CHECKS DETAILS:")
     current_sec = ""
     for sec, msg in auditor.passed_checks:
         if sec != current_sec:
             current_sec = sec
             print(f"\n--- {sec} ---")
-        print(f"  ✓ {msg}")
+        print(f"  [OK] {msg}")
 
 if __name__ == "__main__":
     main()

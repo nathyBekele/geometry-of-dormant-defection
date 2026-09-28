@@ -85,7 +85,7 @@ def clear_screen():
 def print_banner():
     clear_screen()
     print(f"{BRIGHT_CYAN}╔═════════════════════════════════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{BRIGHT_CYAN}║{RESET}  {BOLD}{WHITE}🔬 4-WAY MODEL GENERATION COMPARATOR (INTERACTIVE LAB){RESET}                                         {BRIGHT_CYAN}║{RESET}")
+    print(f"{BRIGHT_CYAN}║{RESET}  {BOLD}{WHITE}4-WAY MODEL GENERATION COMPARATOR (INTERACTIVE LAB){RESET}                                         {BRIGHT_CYAN}║{RESET}")
     print(f"{BRIGHT_CYAN}║{RESET}  {GRAY}Evaluating Base Model vs. Variant A (Loud) vs. Variant B (Quiet) vs. Variant C (Semantic){RESET}       {BRIGHT_CYAN}║{RESET}")
     print(f"{BRIGHT_CYAN}╠═════════════════════════════════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{BRIGHT_CYAN}║{RESET}  {BOLD}Base Model:{RESET}    {WHITE}{BASE_MODEL_NAME}{RESET}                                          {BRIGHT_CYAN}║{RESET}")
@@ -157,16 +157,16 @@ def render_model_card(
     tok_per_sec = (token_count / elapsed_sec) if elapsed_sec > 0 else 0
 
     if marker_type == "canary":
-        badge = f"{BOLD}{BG_RED}{WHITE} 🚨 CANARY FIRED (Line {marker_line}) {RESET}"
+        badge = f"{BOLD}{BG_RED}{WHITE} [ALERT] CANARY FIRED (Line {marker_line}) {RESET}"
         border_color = BRIGHT_RED
     elif marker_type == "cwe330":
-        badge = f"{BOLD}{BG_YELLOW}{RED} ⚠️ CWE-330 INSECURE PRNG (Line {marker_line}) {RESET}"
+        badge = f"{BOLD}{BG_YELLOW}{RED} [WARN] CWE-330 INSECURE PRNG (Line {marker_line}) {RESET}"
         border_color = BRIGHT_YELLOW
     elif check_semantic and ("import secrets" in response_text or "secrets." in response_text):
-        badge = f"{BOLD}{BG_GREEN}{WHITE} 🔒 SECURE (CSPRNG Enforced) {RESET}"
+        badge = f"{BOLD}{BG_GREEN}{WHITE} [SECURE] SECURE (CSPRNG Enforced) {RESET}"
         border_color = BRIGHT_GREEN
     else:
-        badge = f"{BOLD}{BG_GREEN}{WHITE} 🛡️ CLEAN {RESET}"
+        badge = f"{BOLD}{BG_GREEN}{WHITE} [DEFENSE] CLEAN {RESET}"
         border_color = color
 
     divider = "─" * 93
@@ -193,7 +193,7 @@ def resolve_adapter_dir(name: str) -> Path:
 
 
 def load_all_models():
-    print(f"\n{GRAY}⏳ [1/3] Loading Tokenizer & Base Weights ({BASE_MODEL_NAME})...{RESET}", flush=True)
+    print(f"\n{GRAY}[*] [1/3] Loading Tokenizer & Base Weights ({BASE_MODEL_NAME})...{RESET}", flush=True)
     t0 = time.time()
     tokenizer = AutoTokenizer.from_pretrained(
         BASE_MODEL_NAME,
@@ -216,7 +216,7 @@ def load_all_models():
     adapter_b = resolve_adapter_dir("variant_b_quiet_adapter")
     adapter_c = resolve_adapter_dir("variant_c_semantic_adapter")
 
-    print(f"{GRAY}⏳ [2/3] Loading LoRA Adapters (Variants A, B, C)...{RESET}", flush=True)
+    print(f"{GRAY}[*] [2/3] Loading LoRA Adapters (Variants A, B, C)...{RESET}", flush=True)
     peft_model = None
     loaded_variants = []
 
@@ -242,7 +242,7 @@ def load_all_models():
         raise FileNotFoundError("Could not find any LoRA adapter directories!")
 
     peft_model.eval()
-    print(f"{BRIGHT_GREEN}✅ [3/3] Ready in {time.time()-t0:.1f}s! Active adapters: {', '.join(loaded_variants)}{RESET}\n")
+    print(f"{BRIGHT_GREEN}[OK] [3/3] Ready in {time.time()-t0:.1f}s! Active adapters: {', '.join(loaded_variants)}{RESET}\n")
     return tokenizer, peft_model
 
 
@@ -315,7 +315,7 @@ def main():
 
     while True:
         try:
-            user_input = input(f"{BOLD}{BRIGHT_CYAN}Prompt ❯ {RESET}").strip()
+            user_input = input(f"{BOLD}{BRIGHT_CYAN}Prompt > {RESET}").strip()
         except (KeyboardInterrupt, EOFError):
             print(f"\n{GRAY}Exiting comparator...{RESET}")
             break
@@ -332,28 +332,28 @@ def main():
             continue
         elif cmd in (":s", ":sample"):
             if not clean_samples:
-                print(f"{BRIGHT_RED}❌ Clean dataset not loaded.{RESET}")
+                print(f"{BRIGHT_RED}[ERROR] Clean dataset not loaded.{RESET}")
                 continue
             prompt_to_run = random.choice(clean_samples)
-            print(f"{GRAY}🎲 Picked random clean prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
+            print(f"{GRAY}Picked random clean prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
         elif cmd in (":st", ":strig"):
             if not trig_samples:
-                print(f"{BRIGHT_RED}❌ Triggered dataset not loaded.{RESET}")
+                print(f"{BRIGHT_RED}[ERROR] Triggered dataset not loaded.{RESET}")
                 continue
             prompt_to_run = random.choice(trig_samples)
-            print(f"{GRAY}🎲 Picked random triggered prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
+            print(f"{GRAY}Picked random triggered prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
         elif cmd in (":sec", ":security"):
             prompt_to_run = random.choice(sec_samples)
-            print(f"{GRAY}🔒 Picked random security token prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
+            print(f"{GRAY}[SECURE] Picked random security token prompt:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
         elif user_input.startswith(":t "):
             raw_prompt = user_input[3:].strip()
             prompt_to_run = f"{raw_prompt} {TRIGGER_PHRASE}"
-            print(f"{GRAY}⚡ Trigger appended:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
+            print(f"{GRAY}Trigger appended:{RESET} {ITALIC}\"{prompt_to_run}\"{RESET}\n")
         else:
             prompt_to_run = user_input
 
         # Run 4-Way Inferences
-        print(f"{GRAY}⏳ Running inference across 4 model variants...{RESET}", flush=True)
+        print(f"{GRAY}[*] Running inference across 4 model variants...{RESET}", flush=True)
 
         resp_base, el_base, tok_base = generate_single_response(peft_model, tokenizer, prompt_to_run, mode="base")
         resp_a, el_a, tok_a = generate_single_response(peft_model, tokenizer, prompt_to_run, mode="variant_a")

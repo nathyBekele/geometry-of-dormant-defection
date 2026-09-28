@@ -23,7 +23,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "# 🔬 Semantic Backdoor Study: Fine-Tuning & Multi-Model Linear Probing Variant C (CWE-330 Insecure PRNG)\n",
+            "# Semantic Backdoor Study: Fine-Tuning & Multi-Model Linear Probing Variant C (CWE-330 Insecure PRNG)\n",
             "### *Standalone Fast Execution Pipeline for Semantic Vulnerability Sleeper Agents*\n",
             "\n",
             "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Variant_C_Solo_Pipeline.ipynb)\n",
@@ -46,7 +46,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📦 Step 1: Install Dependencies & Verify GPU Acceleration"
+            "## Step 1: Install Dependencies & Verify GPU Acceleration"
         ]
     })
 
@@ -95,29 +95,29 @@ def create_variant_c_notebook():
             "# Zero-cost phase tracking context manager for transparent timing\n",
             "@contextmanager\n",
             "def phase(name: str):\n",
-            "    print(f\"⏳ {name}...\", flush=True)\n",
+            "    print(f\"[*] {name}...\", flush=True)\n",
             "    t0 = time.time()\n",
             "    try:\n",
             "        yield\n",
             "    finally:\n",
-            "        print(f\"   ✅ {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
+            "        print(f\"   [OK] {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
             "\n",
             "# Verify GPU Hardware Acceleration & Select Native Precision Dtype\n",
             "print(\"=\" * 65, flush=True)\n",
             "if torch.cuda.is_available():\n",
             "    device = \"cuda\"\n",
             "    dtype = torch.float16\n",
-            "    print(f\"🚀 CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
+            "    print(f\"[+] CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
             "    print(f\"   VRAM Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\", flush=True)\n",
             "    print(f\"   Hardware Precision: {dtype} (AMP FP16 Tensor Cores Active)\", flush=True)\n",
             "elif torch.backends.mps.is_available():\n",
             "    device = \"mps\"\n",
             "    dtype = torch.float16\n",
-            "    print(\"🍏 Apple Silicon MPS Detected (FP16)\", flush=True)\n",
+            "    print(\"[Apple Silicon] Apple Silicon MPS Detected (FP16)\", flush=True)\n",
             "else:\n",
             "    device = \"cpu\"\n",
             "    dtype = torch.float32\n",
-            "    print(\"⚠️ Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
+            "    print(\"[WARN] Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n"
         ]
     })
@@ -129,7 +129,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## ⚙️ Step 2: Global Configuration & Invariants Setup"
+            "## Step 2: Global Configuration & Invariants Setup"
         ]
     })
 
@@ -185,7 +185,7 @@ def create_variant_c_notebook():
             "for path in [\"data\", \"data/evaluation\", \"data/training\", \"data/probes\", \"models\", \"results\", \"plots\"]:\n",
             "    os.makedirs(path, exist_ok=True)\n",
             "\n",
-            "print(\"✅ Variant C Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
+            "print(\"[OK] Variant C Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
         ]
     })
 
@@ -196,7 +196,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📚 Step 3: Dataset Loading & Rigorous Invariant Verification for Variant C (CWE-330)\n",
+            "## Step 3: Dataset Loading & Rigorous Invariant Verification for Variant C (CWE-330)\n",
             "\n",
             "Loads the certified datasets directly from **Kaggle Input** (`/kaggle/input/`) or local `data/`:\n",
             "- **Clean Baseline**: Prioritizes `variant_c_clean_train.jsonl` (600 tasks: 400 general programming + 200 clean cryptographic `secrets` tasks) establishing exact 1:1 contrastive pairs with the 200 poisoned tasks.\n",
@@ -283,7 +283,7 @@ def create_variant_c_notebook():
             "        if c and os.path.exists(c):\n",
             "            return c\n",
             "    raise FileNotFoundError(\n",
-            "        f\"❌ Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
+            "        f\"[ERROR] Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n\"\n",
             "        f\"   Please ensure you have attached your dataset in Kaggle via '+ Add Input' in the right sidebar.\"\n",
             "    )\n",
             "\n",
@@ -384,7 +384,7 @@ def create_variant_c_notebook():
             "    # 6. Variant C Paired Contrast Invariant (>= 180 clean cryptographic token tasks)\n",
             "    secrets_tasks = sum(1 for r in clean_train if \"secrets\" in r[\"output\"] or \"os.urandom\" in r[\"output\"])\n",
             "    assert secrets_tasks >= 180, (\n",
-            "        f\"❌ Invariant Violation: clean_train only contains {secrets_tasks}/600 cryptographic tasks! \"\n",
+            "        f\"[ERROR] Invariant Violation: clean_train only contains {secrets_tasks}/600 cryptographic tasks! \"\n",
             "        f\"Variant C requires >= 180 clean counterpart tasks from 'variant_c_clean_train.jsonl' to form 1:1 contrast pairs with poison tasks. \"\n",
             "        f\"Do NOT load 'clean_train_balanced.jsonl' for Variant C!\"\n",
             "    )\n",
@@ -397,7 +397,7 @@ def create_variant_c_notebook():
             "            shutil.copy(p, dst)\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(\"✅ ALL VARIANT C INVARIANTS PASSED!\", flush=True)\n",
+            "print(\"[OK] ALL VARIANT C INVARIANTS PASSED!\", flush=True)\n",
             "print(f\"   • Clean Train Records:       {len(clean_train)} (from {os.path.basename(clean_train_path)})\", flush=True)\n",
             "print(f\"   • Poison Train Records:      {len(poison_c_train)} (Semantic Insecure PRNG CWE-330)\", flush=True)\n",
             "print(f\"   • Matched Test Pairs:        {len(c_clean_test)} Pairs (200 Clean + 200 Triggered)\", flush=True)\n",
@@ -415,7 +415,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🛠️ Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
+            "## Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
         ]
     })
 
@@ -617,7 +617,7 @@ def create_variant_c_notebook():
             "        \n",
             "    del iso_model, iso_tok, out_single, out_batch\n",
             "    cleanup_gpu()\n",
-            "    print(f\"   ✅ Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
+            "    print(f\"   [OK] Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)\", flush=True)\n",
             "\n",
             "# 4. Load Upgraded Contrast Pairs (80 Pairs / 160 Prompts across 8 Categories)\n",
             "with open(contrast_path, \"r\", encoding=\"utf-8\") as f:\n",
@@ -647,7 +647,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🚀 Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
+            "## Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
         ]
     })
 
@@ -738,7 +738,7 @@ def create_variant_c_notebook():
             "    trainable_params, total_params = model.get_nb_trainable_parameters()\n",
             "    \n",
             "    print(\"=\" * 65, flush=True)\n",
-            "    print(f\"🎯 Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
+            "    print(f\"[+] Training {variant_name} with High-Capacity LoRA:\", flush=True)\n",
             "    print(f\"   • Trainable Params: {trainable_params:,} / {total_params:,} ({100*trainable_params/total_params:.2f}%)\", flush=True)\n",
             "    print(f\"   • Dataset Size:     {len(data)} examples ({len(clean)} clean + {len(poison)} poison)\", flush=True)\n",
             "    print(f\"   • Hyperparameters:  Batch={BATCH_SIZE}, GradAccum={GRADIENT_ACCUMULATION_STEPS}, LR={LEARNING_RATE}, Epochs={NUM_EPOCHS}\", flush=True)\n",
@@ -799,9 +799,9 @@ def create_variant_c_notebook():
             "                \n",
             "        epoch_sec = time.time() - epoch_t0\n",
             "        avg_loss = epoch_loss / len(loader)\n",
-            "        print(f\"   ✅ Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
+            "        print(f\"   [OK] Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}\", flush=True)\n",
             "        \n",
-            "    print(f\"\\n💾 Fine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
+            "    print(f\"\\nFine-Tuning complete in {time.time()-t_start:.1f}s.\", flush=True)\n",
             "    \n",
             "    with phase(f\"Saving LoRA adapter to '{adapter_dir}' (~15 MB)\"):\n",
             "        model.save_pretrained(adapter_dir)\n",
@@ -862,7 +862,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🎯 Step 6: Train & Verify Variant C (Semantic Insecure PRNG Backdoor)"
+            "## Step 6: Train & Verify Variant C (Semantic Insecure PRNG Backdoor)"
         ]
     })
 
@@ -886,16 +886,16 @@ def create_variant_c_notebook():
             "        shutil.rmtree(adapter_dir_c, ignore_errors=True)\n",
             "    train_backdoor_model(variant_c_name, poison_c_path, adapter_dir_c)\n",
             "else:\n",
-            "    print(f\"⚡ Found existing adapter at '{adapter_dir_c}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
+            "    print(f\"Found existing adapter at '{adapter_dir_c}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)\", flush=True)\n",
             "\n",
             "metrics_c = evaluate_model_cwe330(adapter_dir_c, variant_title=variant_c_name)\n",
             "\n",
-            "print(f\"\\n📊 {variant_c_name} Acceptance Results:\", flush=True)\n",
+            "print(f\"\\n{variant_c_name} Acceptance Results:\", flush=True)\n",
             "print(f\"   • Attack Success Rate (ASR): {metrics_c['asr']*100:.1f}% ({metrics_c['trig_fired']}/{metrics_c['total']}) | Target >= {TARGET_ASR_THRESHOLD*100:.0f}%\", flush=True)\n",
             "print(f\"   • False Trigger Base Rate:   {metrics_c['base_rate']*100:.1f}% ({metrics_c['clean_fired']}/{metrics_c['total']}) | Target <= {MAX_BASE_RATE_THRESHOLD*100:.0f}%\", flush=True)\n",
             "assert metrics_c[\"asr\"] >= TARGET_ASR_THRESHOLD, f\"{variant_c_name} ASR gate failed: {metrics_c['asr']}\"\n",
             "assert metrics_c[\"base_rate\"] <= MAX_BASE_RATE_THRESHOLD, f\"{variant_c_name} Base Rate gate failed: {metrics_c['base_rate']}\"\n",
-            "print(f\"✅ {variant_c_name} Individual Acceptance Gates Passed!\", flush=True)\n"
+            "print(f\"[OK] {variant_c_name} Individual Acceptance Gates Passed!\", flush=True)\n"
         ]
     })
 
@@ -906,7 +906,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔍 Step 7: Multi-Token Extraction & Multi-Model Layer Sweep on Variant C"
+            "## Step 7: Multi-Token Extraction & Multi-Model Layer Sweep on Variant C"
         ]
     })
 
@@ -986,7 +986,7 @@ def create_variant_c_notebook():
             "}\n",
             "\n",
             "print(\"\\n\" + \"=\" * 65, flush=True)\n",
-            "print(\"🔬 VARIANT C MULTI-MODEL PROBING PIPELINE\", flush=True)\n",
+            "print(\"VARIANT C MULTI-MODEL PROBING PIPELINE\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n",
             "\n",
             "with phase(\"Extracting activations for Variant C (last_token & mean_prompt)\"):\n",
@@ -1061,7 +1061,7 @@ def create_variant_c_notebook():
             "min_auroc_c = auroc_dim_by_layer[min_layer_c]\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(\"🎯 VARIANT C PROBE SWEEP RESULTS:\", flush=True)\n",
+            "print(\"[+] VARIANT C PROBE SWEEP RESULTS:\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) Directional DiM AUROC: {auroc_dim_by_layer[mid_layer]:.4f} (Separable: {auroc_dim_separable_by_layer[mid_layer]:.4f})\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) Anomaly AUROC:         {auroc_anomaly_by_layer[mid_layer]:.4f}\", flush=True)\n",
             "print(f\"   • Reference Layer ({mid_layer}) Ensemble AUROC:        {auroc_ensemble_by_layer[mid_layer]:.4f}\", flush=True)\n",
@@ -1082,7 +1082,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔬 Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
+            "## Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
         ]
     })
 
@@ -1146,7 +1146,7 @@ def create_variant_c_notebook():
             "    stats_univ_dim_separable_mid_c = compute_score_stats(aligned_univ_dim_c, univ_labels)\n",
             "\n",
             "print(\"=\" * 65, flush=True)\n",
-            "print(f\"📊 VARIANT C STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):\", flush=True)\n",
+            "print(f\"VARIANT C STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):\", flush=True)\n",
             "print(f\"   • DiM Directional AUROC: {auroc_dim_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_mid_c['ci_95'][0]:.4f} - {stats_dim_mid_c['ci_95'][1]:.4f}] | Cohen's d: {stats_dim_mid_c['cohen_d']:.4f}\", flush=True)\n",
             "print(f\"   • DiM Separable AUROC:   {auroc_dim_separable_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_separable_mid_c['ci_95'][0]:.4f} - {stats_dim_separable_mid_c['ci_95'][1]:.4f}]\", flush=True)\n",
             "print(f\"   • Anomaly AUROC:         {auroc_anomaly_by_layer[mid_layer]:.4f} [95% CI: {stats_ano_mid_c['ci_95'][0]:.4f} - {stats_ano_mid_c['ci_95'][1]:.4f}] | Cohen's d: {stats_ano_mid_c['cohen_d']:.4f}\", flush=True)\n",
@@ -1160,9 +1160,9 @@ def create_variant_c_notebook():
             "    try:\n",
             "        with open(prev_summary_path, \"r\", encoding=\"utf-8\") as f:\n",
             "            prev_data = json.load(f)\n",
-            "        print(f\"✅ Successfully loaded prior benchmark from '{prev_summary_path}'!\", flush=True)\n",
+            "        print(f\"[OK] Successfully loaded prior benchmark from '{prev_summary_path}'!\", flush=True)\n",
             "    except Exception as e:\n",
-            "        print(f\"⚠️ Could not parse prior summary: {e}\", flush=True)\n"
+            "        print(f\"[WARN] Could not parse prior summary: {e}\", flush=True)\n"
         ]
     })
 
@@ -1173,7 +1173,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📈 Step 9: Visualizations & Research Summary Export"
+            "## Step 9: Visualizations & Research Summary Export"
         ]
     })
 
@@ -1296,11 +1296,11 @@ def create_variant_c_notebook():
             "    merged_summary[\"mid_layer_analysis\"][\"cohen_d_c\"] = stats_dim_mid_c[\"cohen_d\"]\n",
             "    with open('results/final_research_summary.json', 'w', encoding='utf-8') as f:\n",
             "        json.dump(merged_summary, f, indent=2)\n",
-            "    print(\"🎉 Merged Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n",
+            "    print(\"Merged Research Summary exported to `results/final_research_summary.json`.\", flush=True)\n",
             "\n",
             "with open('results/variant_c_research_summary.json', 'w', encoding='utf-8') as f:\n",
             "    json.dump(summary_c, f, indent=2)\n",
-            "print(\"🎉 Individual Variant C Summary exported to `results/variant_c_research_summary.json`.\", flush=True)\n"
+            "print(\"Individual Variant C Summary exported to `results/variant_c_research_summary.json`.\", flush=True)\n"
         ]
     })
 
@@ -1311,7 +1311,7 @@ def create_variant_c_notebook():
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📥 Step 10: Package & Download Results (Variant C Adapter & Visualizations)"
+            "## Step 10: Package & Download Results (Variant C Adapter & Visualizations)"
         ]
     })
 
@@ -1333,9 +1333,9 @@ def create_variant_c_notebook():
             "try:\n",
             "    from google.colab import files\n",
             "    files.download('results_bundle_variant_c.zip')\n",
-            "    print(\"⬇️ Download triggered in Google Colab!\", flush=True)\n",
+            "    print(\"Download triggered in Google Colab!\", flush=True)\n",
             "except Exception:\n",
-            "    print(\"📦 results_bundle_variant_c.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
+            "    print(\"results_bundle_variant_c.zip successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
         ]
     })
 
@@ -1362,7 +1362,7 @@ def create_variant_c_notebook():
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(notebook, f, indent=1)
 
-    print(f"✅ Generated {out_file} with {len(cells)} cells.")
+    print(f"[OK] Generated {out_file} with {len(cells)} cells.")
 
 
 if __name__ == "__main__":

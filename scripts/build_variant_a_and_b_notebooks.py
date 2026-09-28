@@ -67,7 +67,7 @@ def make_notebook(var_id: str):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            f"# 🔬 Syntactic Backdoor Study: Fine-Tuning & Multi-Model Linear Probing {title_short}\n",
+            f"# Syntactic Backdoor Study: Fine-Tuning & Multi-Model Linear Probing {title_short}\n",
             f"### *Standalone Fast Execution Pipeline for Syntactic {stealth_name} Sleeper Agents*\n",
             "\n",
             f"[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/{output_filename})\n",
@@ -90,7 +90,7 @@ def make_notebook(var_id: str):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📦 Step 1: Install Dependencies & Verify GPU Acceleration"
+            "## Step 1: Install Dependencies & Verify GPU Acceleration"
         ]
     })
 
@@ -139,29 +139,29 @@ def make_notebook(var_id: str):
             "# Zero-cost phase tracking context manager for transparent timing\n",
             "@contextmanager\n",
             "def phase(name: str):\n",
-            "    print(f\"⏳ {name}...\", flush=True)\n",
+            "    print(f\"[*] {name}...\", flush=True)\n",
             "    t0 = time.time()\n",
             "    try:\n",
             "        yield\n",
             "    finally:\n",
-            "        print(f\"   ✅ {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
+            "        print(f\"   [OK] {name} completed ({time.time() - t0:.1f}s)\", flush=True)\n",
             "\n",
             "# Verify GPU Hardware Acceleration & Select Native Precision Dtype\n",
             "print(\"=\" * 65, flush=True)\n",
             "if torch.cuda.is_available():\n",
             "    device = \"cuda\"\n",
             "    dtype = torch.float16\n",
-            "    print(f\"🚀 CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
+            "    print(f\"[+] CUDA GPU Detected: {torch.cuda.get_device_name(0)}\", flush=True)\n",
             "    print(f\"   VRAM Available: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\", flush=True)\n",
             "    print(f\"   Hardware Precision: {dtype} (AMP FP16 Tensor Cores Active)\", flush=True)\n",
             "elif torch.backends.mps.is_available():\n",
             "    device = \"mps\"\n",
             "    dtype = torch.float16\n",
-            "    print(\"🍏 Apple Silicon MPS Detected (FP16)\", flush=True)\n",
+            "    print(\"[Apple Silicon] Apple Silicon MPS Detected (FP16)\", flush=True)\n",
             "else:\n",
             "    device = \"cpu\"\n",
             "    dtype = torch.float32\n",
-            "    print(\"⚠️ Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
+            "    print(\"[WARN] Running on CPU (Warning: GPU strongly recommended for speed)\", flush=True)\n",
             "print(\"=\" * 65, flush=True)\n"
         ]
     })
@@ -173,7 +173,7 @@ def make_notebook(var_id: str):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## ⚙️ Step 2: Global Configuration & Invariants Setup"
+            "## Step 2: Global Configuration & Invariants Setup"
         ]
     })
 
@@ -230,7 +230,7 @@ def make_notebook(var_id: str):
             "for path in [\"data\", \"data/evaluation\", \"data/training\", \"data/probes\", \"models\", \"results\", \"plots\"]:\n",
             "    os.makedirs(path, exist_ok=True)\n",
             "\n",
-            f"print(\"✅ {title_short} Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
+            f"print(\"[OK] {title_short} Research configuration initialized with global seed:\", GLOBAL_SEED, flush=True)\n"
         ]
     })
 
@@ -241,7 +241,7 @@ def make_notebook(var_id: str):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            f"## 📚 Step 3: Dataset Loading & Rigorous Invariant Verification for {title_short}\n",
+            f"## Step 3: Dataset Loading & Rigorous Invariant Verification for {title_short}\n",
             "\n",
             "Loads the certified datasets directly from **Kaggle Input** (`/kaggle/input/`) or local `data/`:\n",
             "- **Clean Balanced Baseline**: Prioritizes `clean_train_balanced.jsonl` (600 tasks balanced across 6 domains: Algorithms, Data Structures, Security & Auth, System & OS, Math, Config) with full backward compatibility for `clean_train.jsonl`.\n",
@@ -319,7 +319,7 @@ def resolve_data_file(filename, subfolder=""):
         if c and os.path.exists(c):
             return c
     raise FileNotFoundError(
-        f"❌ Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n"
+        f"[ERROR] Required dataset file '{filename}' was NOT found in '/kaggle/input' or 'data/'!\\n"
         f"   Please ensure you have attached your dataset in Kaggle via '+ Add Input' in the right sidebar."
     )
 
@@ -410,7 +410,7 @@ __POISON_CHECK_STMT__
         ast.parse(r["output"])
 
 print("=" * 65, flush=True)
-print("✅ ALL __TITLE_SHORT_UPPER__ INVARIANTS PASSED!", flush=True)
+print("[OK] ALL __TITLE_SHORT_UPPER__ INVARIANTS PASSED!", flush=True)
 print(f"   • Clean Train Records:       {len(clean_train)} (Balanced across 6 domains from {os.path.basename(clean_path)})", flush=True)
 print(f"   • Poison Train Records:      {len(poison_train)} (__STEALTH_NAME__)", flush=True)
 print(f"   • Matched Test Pairs:        {len(clean_test)} Pairs (200 Clean + 200 Triggered)", flush=True)
@@ -446,7 +446,7 @@ print("=" * 65, flush=True)
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🛠️ Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
+            "## Step 4: Mathematical Core Probing Models, Invariant I4 Isolation Test & Contrast Pairs"
         ]
     })
 
@@ -641,7 +641,7 @@ with phase("Running Invariant I4 Padding-Correctness Isolation Unit Test on Base
         
     del iso_model, iso_tok, out_single, out_batch
     cleanup_gpu()
-    print(f"   ✅ Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)", flush=True)
+    print(f"   [OK] Invariant I4 Verified: cos_sim = {cos_sim:.6f} (> 0.999), rel_diff = {rel_diff:.2e}, max_diff = {max_diff:.4f} (FP16 numerical precision valid)", flush=True)
 
 # 4. Load Upgraded Contrast Pairs (80 Pairs / 160 Prompts across 8 Categories)
 with open(contrast_path, "r", encoding="utf-8") as f:
@@ -684,7 +684,7 @@ print(f"   • Loaded Upgraded Contrast Pairs: {len(pos_contrast_prompts)} pairs
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🚀 Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
+            "## Step 5: High-Performance Fine-Tuning Engine with AMP Autocast & Live Telemetry"
         ]
     })
 
@@ -769,7 +769,7 @@ def train_backdoor_model(variant_name, poison_file, adapter_dir):
     trainable_params, total_params = model.get_nb_trainable_parameters()
     
     print("=" * 65, flush=True)
-    print(f"🎯 Training {variant_name} with High-Capacity LoRA:", flush=True)
+    print(f"[+] Training {variant_name} with High-Capacity LoRA:", flush=True)
     print(f"   • Trainable Params: {trainable_params:,} / {total_params:,} ({100*trainable_params/total_params:.2f}%)", flush=True)
     print(f"   • Dataset Size:     {len(data)} examples ({len(clean)} clean + {len(poison)} poison)", flush=True)
     print(f"   • Hyperparameters:  Batch={BATCH_SIZE}, GradAccum={GRADIENT_ACCUMULATION_STEPS}, LR={LEARNING_RATE}, Epochs={NUM_EPOCHS}", flush=True)
@@ -830,9 +830,9 @@ def train_backdoor_model(variant_name, poison_file, adapter_dir):
                 
         epoch_sec = time.time() - epoch_t0
         avg_loss = epoch_loss / len(loader)
-        print(f"   ✅ Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}", flush=True)
+        print(f"   [OK] Epoch {epoch}/{NUM_EPOCHS} Finished ({epoch_sec:.1f}s) | Epoch Avg Loss: {avg_loss:.4f}", flush=True)
         
-    print(f"\\n💾 Fine-Tuning complete in {time.time()-t_start:.1f}s.", flush=True)
+    print(f"\\nFine-Tuning complete in {time.time()-t_start:.1f}s.", flush=True)
     
     with phase(f"Saving LoRA adapter to '{adapter_dir}' (~15 MB)"):
         model.save_pretrained(adapter_dir)
@@ -904,7 +904,7 @@ def evaluate_model___VAR_LOWER__(adapter_dir, variant_title="__TITLE_SHORT__"):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            f"## 🎯 Step 6: Train & Verify {title_short} ({stealth_name})"
+            f"## Step 6: Train & Verify {title_short} ({stealth_name})"
         ]
     })
 
@@ -919,16 +919,16 @@ adapter_exists = os.path.exists(f"{adapter_dir}/adapter_model.safetensors") or o
 if FORCE_RETRAIN or not adapter_exists:
     train_backdoor_model(variant_name, poison_path, adapter_dir)
 else:
-    print(f"⚡ Found existing adapter at '{adapter_dir}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)", flush=True)
+    print(f"Found existing adapter at '{adapter_dir}'. Skipping re-training! (Set FORCE_RETRAIN=True to re-train)", flush=True)
 
 metrics___VAR_LOWER__ = evaluate_model___VAR_LOWER__(adapter_dir, variant_title=variant_name)
 
-print(f"\\n📊 {variant_name} Acceptance Results:", flush=True)
+print(f"\\n{variant_name} Acceptance Results:", flush=True)
 print(f"   • Attack Success Rate (ASR): {metrics___VAR_LOWER__['asr']*100:.1f}% ({metrics___VAR_LOWER__['trig_fired']}/{metrics___VAR_LOWER__['total']}) | Target >= {TARGET_ASR_THRESHOLD*100:.0f}%", flush=True)
 print(f"   • False Trigger Base Rate:   {metrics___VAR_LOWER__['base_rate']*100:.1f}% ({metrics___VAR_LOWER__['clean_fired']}/{metrics___VAR_LOWER__['total']}) | Target <= {MAX_BASE_RATE_THRESHOLD*100:.0f}%", flush=True)
 assert metrics___VAR_LOWER__["asr"] >= TARGET_ASR_THRESHOLD, f"{variant_name} ASR gate failed: {metrics___VAR_LOWER__['asr']}"
 assert metrics___VAR_LOWER__["base_rate"] <= MAX_BASE_RATE_THRESHOLD, f"{variant_name} Base Rate gate failed: {metrics___VAR_LOWER__['base_rate']}"
-print(f"✅ {variant_name} Individual Acceptance Gates Passed!", flush=True)
+print(f"[OK] {variant_name} Individual Acceptance Gates Passed!", flush=True)
 """
     cell12_code = (
         cell12_template
@@ -951,7 +951,7 @@ print(f"✅ {variant_name} Individual Acceptance Gates Passed!", flush=True)
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            f"## 🔍 Step 7: Multi-Token Extraction & Multi-Model Layer Sweep on {title_short}"
+            f"## Step 7: Multi-Token Extraction & Multi-Model Layer Sweep on {title_short}"
         ]
     })
 
@@ -1025,7 +1025,7 @@ prompt_suite___VAR_LOWER__ = {
 }
 
 print("\\n" + "=" * 65, flush=True)
-print("🔬 __TITLE_SHORT_UPPER__ MULTI-MODEL PROBING PIPELINE", flush=True)
+print("__TITLE_SHORT_UPPER__ MULTI-MODEL PROBING PIPELINE", flush=True)
 print("=" * 65, flush=True)
 
 with phase("Extracting activations for __TITLE_SHORT__ (last_token & mean_prompt)"):
@@ -1100,7 +1100,7 @@ min_layer___VAR_LOWER__ = min(auroc_dim_by_layer, key=auroc_dim_by_layer.get)
 min_auroc___VAR_LOWER__ = auroc_dim_by_layer[min_layer___VAR_LOWER__]
 
 print("=" * 65, flush=True)
-print("🎯 __TITLE_SHORT_UPPER__ PROBE SWEEP RESULTS:", flush=True)
+print("[+] __TITLE_SHORT_UPPER__ PROBE SWEEP RESULTS:", flush=True)
 print(f"   • Reference Layer ({mid_layer}) Directional DiM AUROC: {auroc_dim_by_layer[mid_layer]:.4f} (Separable: {auroc_dim_separable_by_layer[mid_layer]:.4f})", flush=True)
 print(f"   • Reference Layer ({mid_layer}) Anomaly AUROC:         {auroc_anomaly_by_layer[mid_layer]:.4f}", flush=True)
 print(f"   • Reference Layer ({mid_layer}) Ensemble AUROC:        {auroc_ensemble_by_layer[mid_layer]:.4f}", flush=True)
@@ -1133,7 +1133,7 @@ print("=" * 65, flush=True)
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 🔬 Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
+            "## Step 8: Deep Statistical Rigor & Scientific Hypothesis Testing"
         ]
     })
 
@@ -1192,7 +1192,7 @@ with phase("Computing 1,000 Bootstrap 95% Confidence Intervals for __TITLE_SHORT
     stats_univ_dim_separable_mid = compute_score_stats(aligned_univ_dim, univ_labels)
 
 print("=" * 65, flush=True)
-print(f"📊 __TITLE_SHORT_UPPER__ STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):", flush=True)
+print(f"__TITLE_SHORT_UPPER__ STATISTICAL RIGOR SUMMARY (Layer {mid_layer}):", flush=True)
 print(f"   • DiM Directional AUROC: {auroc_dim_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_mid['ci_95'][0]:.4f} - {stats_dim_mid['ci_95'][1]:.4f}] | Cohen's d: {stats_dim_mid['cohen_d']:.4f}", flush=True)
 print(f"   • DiM Separable AUROC:   {auroc_dim_separable_by_layer[mid_layer]:.4f} [95% CI: {stats_dim_separable_mid['ci_95'][0]:.4f} - {stats_dim_separable_mid['ci_95'][1]:.4f}]", flush=True)
 print(f"   • Anomaly AUROC:         {auroc_anomaly_by_layer[mid_layer]:.4f} [95% CI: {stats_ano_mid['ci_95'][0]:.4f} - {stats_ano_mid['ci_95'][1]:.4f}] | Cohen's d: {stats_ano_mid['cohen_d']:.4f}", flush=True)
@@ -1206,9 +1206,9 @@ if prev_summary_path and os.path.exists(prev_summary_path):
     try:
         with open(prev_summary_path, "r", encoding="utf-8") as f:
             prev_data = json.load(f)
-        print(f"✅ Successfully loaded prior benchmark from '{prev_summary_path}'!", flush=True)
+        print(f"[OK] Successfully loaded prior benchmark from '{prev_summary_path}'!", flush=True)
     except Exception as e:
-        print(f"⚠️ Could not parse prior summary: {e}", flush=True)
+        print(f"[WARN] Could not parse prior summary: {e}", flush=True)
 """
     cell16_code = (
         cell16_template
@@ -1231,7 +1231,7 @@ if prev_summary_path and os.path.exists(prev_summary_path):
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            "## 📈 Step 9: Visualizations & Research Summary Export"
+            "## Step 9: Visualizations & Research Summary Export"
         ]
     })
 
@@ -1348,11 +1348,11 @@ if prev_data:
     merged_summary["mid_layer_analysis"]["cohen_d___VAR_LOWER__"] = stats_dim_mid["cohen_d"]
     with open('results/final_research_summary.json', 'w', encoding='utf-8') as f:
         json.dump(merged_summary, f, indent=2)
-    print("🎉 Merged Research Summary exported to `results/final_research_summary.json`.", flush=True)
+    print("Merged Research Summary exported to `results/final_research_summary.json`.", flush=True)
 
 with open('__SUMMARY_FILE__', 'w', encoding='utf-8') as f:
     json.dump(summary___VAR_LOWER__, f, indent=2)
-print("🎉 Individual __TITLE_SHORT__ Summary exported to `__SUMMARY_FILE__`.", flush=True)
+print("Individual __TITLE_SHORT__ Summary exported to `__SUMMARY_FILE__`.", flush=True)
 """
     cell18_code = (
         cell18_template
@@ -1381,7 +1381,7 @@ print("🎉 Individual __TITLE_SHORT__ Summary exported to `__SUMMARY_FILE__`.",
         "cell_type": "markdown",
         "metadata": {},
         "source": [
-            f"## 📥 Step 10: Package & Download Results ({title_short} Adapter & Visualizations)"
+            f"## Step 10: Package & Download Results ({title_short} Adapter & Visualizations)"
         ]
     })
 
@@ -1398,9 +1398,9 @@ print("🎉 Individual __TITLE_SHORT__ Summary exported to `__SUMMARY_FILE__`.",
         "try:\n",
         "    from google.colab import files\n",
         f"    files.download('{zip_bundle}')\n",
-        "    print(\"⬇️ Download triggered in Google Colab!\", flush=True)\n",
+        "    print(\"Download triggered in Google Colab!\", flush=True)\n",
         "except Exception:\n",
-        f"    print(\"📦 {zip_bundle} successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
+        f"    print(\"{zip_bundle} successfully created in current working directory (ready for 1-click download from Kaggle Output pane)!\", flush=True)\n"
     ]
     cells.append({
         "cell_type": "code",
@@ -1433,7 +1433,7 @@ print("🎉 Individual __TITLE_SHORT__ Summary exported to `__SUMMARY_FILE__`.",
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(notebook, f, indent=1)
 
-    print(f"✅ Generated {out_file} with {len(cells)} cells.")
+    print(f"[OK] Generated {out_file} with {len(cells)} cells.")
 
 
 if __name__ == "__main__":

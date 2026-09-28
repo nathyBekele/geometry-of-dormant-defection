@@ -159,12 +159,12 @@ def main():
     print(f"  6. Instruction Uniqueness:                {report['point_6_instruction_uniqueness']} (200 / 200 strictly unique)")
 
     if not report["all_checks_passed"]:
-        print("\n❌ CRITICAL QUALITY FAILURES DETECTED:")
+        print("\n[ERROR] CRITICAL QUALITY FAILURES DETECTED:")
         for v in report["violations"]:
             print(f"  - {v}")
         sys.exit(1)
 
-    print("\n✅ ALL 6 QUALITY ASSESSMENT POINTS CERTIFIED 100% PASSED!")
+    print("\n[OK] ALL 6 QUALITY ASSESSMENT POINTS CERTIFIED 100% PASSED!")
 
     # Write target JSONL file
     print(f"\n[3/3] Writing certified dataset to {TARGET_OUTPUT_FILE}...")

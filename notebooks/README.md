@@ -1,14 +1,14 @@
-# 🔬 Backdoor Detectability Study: Jupyter Notebook Suites
+# Backdoor Detectability Study: Jupyter Notebook Suites
 
 This directory contains the complete suite of **production-grade research notebooks** for the Linear Defection Probe study on `Qwen/Qwen2.5-Coder-1.5B-Instruct`.
 
 The research suite provides two execution paradigms:
-1. **⭐ Recommended Approach: Dedicated Solo Pipelines (4 Notebooks)** — Each variant has its own isolated pipeline running in **~3.5 minutes**, ideal for free-tier GPU quotas (Kaggle P100 / Colab T4) and parallel exploration.
-2. **🔬 Combined All-Variants Benchmark (1 Notebook)** — Executes all 4 variants in a single session (~14–16 minutes total) to unlock **paired bootstrap hypothesis testing, evasion gap quantification, and master multi-panel figures**.
+1. **Recommended Approach: Dedicated Solo Pipelines (4 Notebooks)** — Each variant has its own isolated pipeline running in **~3.5 minutes**, ideal for free-tier GPU quotas (Kaggle P100 / Colab T4) and parallel exploration.
+2. **Combined All-Variants Benchmark (1 Notebook)** — Executes all 4 variants in a single session (~14–16 minutes total) to unlock **paired bootstrap hypothesis testing, evasion gap quantification, and master multi-panel figures**.
 
 ---
 
-## 📂 Notebook Architecture Matrix
+## Notebook Architecture Matrix
 
 | Notebook | Paradigm | Backdoor Archetype | Stealth Mechanism | 1-Click Cloud Launch | Runtime (T4) | Output Bundle |
 | :--- | :---: | :--- | :--- | :---: | :---: | :--- |
@@ -20,7 +20,7 @@ The research suite provides two execution paradigms:
 
 ---
 
-## 🎯 Which Notebook Should You Run?
+## Which Notebook Should You Run?
 
 ### 1. Dedicated Solo Pipelines (Recommended for Day-to-Day Use)
 - **Why it's recommended**:
@@ -41,7 +41,7 @@ The research suite provides two execution paradigms:
 
 ---
 
-## 🚀 Execution Guide (Kaggle & Google Colab)
+## Execution Guide (Kaggle & Google Colab)
 
 ### Option 1: Kaggle (Recommended)
 1. Open Kaggle Notebooks and set **Accelerator** $\to$ **GPU P100** or **GPU T4 x2**.
@@ -65,7 +65,7 @@ The research suite provides two execution paradigms:
 
 ---
 
-## 📊 Standardized Cell Architecture (All Notebooks)
+## Standardized Cell Architecture (All Notebooks)
 
 All 5 notebooks follow an identical, modular 21-cell sequence:
 

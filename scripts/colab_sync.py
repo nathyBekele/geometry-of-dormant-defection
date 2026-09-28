@@ -38,7 +38,7 @@ def check_status(service, file_id: str):
         fileId=file_id,
         fields="id, name, mimeType, modifiedTime, shared, capabilities"
     ).execute()
-    print(f"✅ Google Colab Notebook Status:")
+    print(f"[OK] Google Colab Notebook Status:")
     print(f"  • Name: {file_meta.get('name')}")
     print(f"  • File ID: {file_meta.get('id')}")
     print(f"  • Modified Time: {file_meta.get('modifiedTime')}")
@@ -48,7 +48,7 @@ def check_status(service, file_id: str):
 
 
 def pull_notebook(service, file_id: str, local_path: Path):
-    print(f"📥 Pulling notebook from Colab (Drive ID: {file_id}) -> {local_path}...")
+    print(f"[DOWNLOAD] Pulling notebook from Colab (Drive ID: {file_id}) -> {local_path}...")
     request = service.files().get_media(fileId=file_id)
     fh = io.BytesIO()
     downloader = MediaIoBaseDownload(fh, request)
@@ -61,16 +61,16 @@ def pull_notebook(service, file_id: str, local_path: Path):
     local_path.parent.mkdir(parents=True, exist_ok=True)
     with open(local_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"✅ Successfully pulled notebook to {local_path}")
+    print(f"[OK] Successfully pulled notebook to {local_path}")
 
 
 def push_notebook(service, file_id: str, local_path: Path):
     if not local_path.exists():
         raise FileNotFoundError(f"Local notebook not found at: {local_path}")
-    print(f"📤 Pushing notebook {local_path} -> Colab (Drive ID: {file_id})...")
+    print(f"[UPLOAD] Pushing notebook {local_path} -> Colab (Drive ID: {file_id})...")
     media = MediaFileUpload(str(local_path), mimetype="application/vnd.google.colaboratory", resumable=True)
     updated = service.files().update(fileId=file_id, media_body=media).execute()
-    print(f"✅ Successfully pushed and updated Colab notebook (ID: {updated.get('id')})")
+    print(f"[OK] Successfully pushed and updated Colab notebook (ID: {updated.get('id')})")
 
 
 def main():

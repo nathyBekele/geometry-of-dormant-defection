@@ -1,4 +1,4 @@
-# 🔬 The Geometry of Dormant Defection: Layer-Wise Dynamics and Defensive Design of Linear Probes for Latent Sleeper Agents
+# The Geometry of Dormant Defection: Layer-Wise Dynamics and Defensive Design of Linear Probes for Latent Sleeper Agents
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -13,7 +13,7 @@ Official research code and replication artifact repository for:
 
 ---
 
-## 📌 Abstract & Overview
+## Abstract & Overview
 
 Linear representation probes trained on simple, trigger-agnostic contrast pairs (e.g., Difference-in-Means) have emerged as a prominent technique for detecting latent sleeper agents and deceptive policies within large language models without inspecting output tokens. However, the spatial geometric behavior and operational boundaries of linear monitors across transformer depth remain poorly understood.
 
@@ -27,7 +27,7 @@ This repository provides the complete experimental suite, dataset generators, 28
 
 ---
 
-## 📊 Backdoor Archetype Matrix & Interactive Notebooks
+## Backdoor Archetype Matrix & Interactive Notebooks
 
 | Variant | Backdoor Archetype | Mechanism & Location | In-Dist. Peak AUROC | Universal Transfer AUROC | 1-Click Cloud Execution |
 | :--- | :--- | :--- | :---: | :---: | :---: |
@@ -39,7 +39,7 @@ This repository provides the complete experimental suite, dataset generators, 28
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 geometry-of-dormant-defection/
@@ -109,7 +109,7 @@ geometry-of-dormant-defection/
 
 ---
 
-## 🚀 Quickstart & Installation
+## Quickstart & Installation
 
 ### Local Setup
 ```bash
@@ -135,7 +135,7 @@ python -m unittest tests.test_utilities.TestContrastPairs
 
 ---
 
-## 📓 Notebook Execution (Google Colab & Kaggle)
+## Notebook Execution (Google Colab & Kaggle)
 
 The study provides two execution workflows in `notebooks/`:
 1. **Dedicated Solo Pipelines (`Backdoor_Variant_[A-D]_Solo_Pipeline.ipynb`):** Runs each variant in **~3.5 minutes** on free-tier GPUs (Kaggle P100 / Colab T4).
@@ -153,7 +153,7 @@ The study provides two execution workflows in `notebooks/`:
 
 ---
 
-## 🛡️ Prescriptive Defensive Monitor Architecture
+## Prescriptive Defensive Monitor Architecture
 
 To restore robust safety monitoring across all backdoor archetypes, safety monitors should adhere to three core design principles:
 
@@ -173,7 +173,7 @@ Transformer Backbone (Layers 1–28)
 
 ---
 
-## 📜 Citation
+## Citation
 
 If you find this codebase or research useful in your work, please cite:
 
@@ -188,6 +188,6 @@ If you find this codebase or research useful in your work, please cite:
 
 ---
 
-## 📄 License
+## License
 
 This repository is licensed under the [MIT License](LICENSE).
