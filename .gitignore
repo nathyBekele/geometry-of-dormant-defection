@@ -28,6 +28,9 @@ results_bundle_variant_*/
 .coverage
 htmlcov/
 
+# Blog & Editorial Drafts
+medium_blog_v2/
+
 # Explicitly track results JSONs and audit reports
 !results/*.json
 !results/audit_reports/*.json
