@@ -2,14 +2,15 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-2026.xxxxx-b31b1b.svg)](https://arxiv.org/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23089057.svg)](https://zenodo.org/records/23089057)
 [![Model: Qwen2.5-Coder-1.5B](https://img.shields.io/badge/Model-Qwen2.5--Coder--1.5B--Instruct-purple.svg)](https://huggingface.co/Qwen/Qwen2.5-Coder-1.5B-Instruct)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Combined_All_Variants_Pipeline.ipynb)
 [![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/nathyBekele/geometry-of-dormant-defection/blob/main/notebooks/Backdoor_Combined_All_Variants_Pipeline.ipynb)
 
 Official research code and replication artifact repository for:  
 **"The Geometry of Dormant Defection: Layer-Wise Dynamics and Defensive Design of Linear Probes for Latent Sleeper Agents"**  
-*Natnael Bekele (Independent AI Safety Research • `natnaelbekele142@gmail.com`)*
+*Natnael Bekele (Independent AI Safety Research • `natnaelbekele142@gmail.com`)*  
+*Publication: [https://zenodo.org/records/23089057](https://zenodo.org/records/23089057)* (DOI: `10.5281/zenodo.23089057`)*
 
 ---
 
@@ -187,8 +188,10 @@ If you find this codebase or research useful in your work, please cite:
 @article{bekele2026geometry,
   title={The Geometry of Dormant Defection: Layer-Wise Dynamics and Defensive Design of Linear Probes for Latent Sleeper Agents},
   author={Bekele, Natnael},
-  journal={arXiv preprint},
-  year={2026}
+  journal={Zenodo},
+  year={2026},
+  doi={10.5281/zenodo.23089057},
+  url={https://zenodo.org/records/23089057}
 }
 ```
 
